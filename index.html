@@ -624,6 +624,12 @@
 .social-card:hover .social-handle {
     color: #ffffff;
 }
+        .nav-btn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    /* Keeps your existing gradient and padding styling */
+}
     </style>
 </head>
 <body>
@@ -647,7 +653,7 @@
                     <li><a href="#socials">Social Media</a></li>
                 </ul>
             </nav>
-            <a href="#team" class="nav-btn">View Roster ↓</a>
+            <button id="cycleBtn" class="nav-btn" onclick="cycleSections()">Explore Site ↓</button>
         </header>
 
         <!-- Hero & Tagline Section -->
@@ -683,7 +689,7 @@
         <!-- Team Roster Section -->
         <section id="team">
             <div class="section-header">
-                <h2 class="section-title">Team Roster</h2>
+                <h2 class="section-title">Team</h2>
                 <span style="color: var(--text-dim); font-size: 0.9rem;">Click any card to edit details</span>
             </div>
 
@@ -896,6 +902,31 @@
         }
 
         renderTeam();
+        // Array of section IDs in the order you want to scroll through
+const sections = ['about', 'team', 'socials'];
+let currentSectionIndex = 0;
+
+function cycleSections() {
+    // Increment index to target the next section, loop back to start if at the end
+    currentSectionIndex = (currentSectionIndex + 1) % sections.length;
+    
+    const targetId = sections[currentSectionIndex];
+    const targetSection = document.getElementById(targetId);
+    
+    if (targetSection) {
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Update button text to reflect the NEXT destination
+    const btn = document.getElementById('cycleBtn');
+    if (currentSectionIndex === 0) {
+        btn.innerHTML = 'View team ↓';
+    } else if (currentSectionIndex === 1) {
+        btn.innerHTML = 'Connect With Us ↓';
+    } else {
+        btn.innerHTML = 'Back to Top ↑';
+    }
+}
     </script>
 </body>
 </html>
