@@ -28,7 +28,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Scroll Offset for Quick Link Jump Visual Clearance */
         section, header {
             scroll-margin-top: 100px;
         }
@@ -45,7 +44,6 @@
             background-attachment: fixed;
         }
 
-        /* Ambient Grid */
         .grid-bg {
             position: fixed;
             inset: 0;
@@ -64,7 +62,6 @@
             z-index: 1;
         }
 
-        /* Fixed Navigation Header */
         header {
             position: sticky;
             top: 0;
@@ -78,7 +75,6 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        /* Brand Logo Quick Link */
         .brand-logo-link {
             display: flex;
             align-items: center;
@@ -141,6 +137,9 @@
             font-size: 0.88rem;
             box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
             transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
         }
 
         .nav-btn:hover {
@@ -148,29 +147,37 @@
             box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
         }
 
-        /* Hero Section */
         .hero {
             text-align: center;
             padding: 4rem 1rem 3rem;
         }
 
+        /* Hero Image Container */
         .hero-logo-box {
-            width: 140px;
-            height: 140px;
+            width: 160px;
+            height: 160px;
             margin: 0 auto 1.8rem;
             background: #ffffff;
             border-radius: 28px;
             padding: 12px;
-            box-shadow: 0 0 35px rgba(168, 85, 247, 0.25);
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            border: 1px solid var(--border-glow);
         }
 
-        .hero-logo-box img {
+        .hero-logo-img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            border-radius: 16px;
+            transition: transform 0.4s ease;
+        }
+
+        .hero-logo-box:hover .hero-logo-img {
+            transform: scale(1.05);
         }
 
         .hero-badge {
@@ -211,12 +218,11 @@
             margin-bottom: 3.5rem;
         }
 
-        /* Tagline Pillars Cards */
         .pillars-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.8rem;
-            margin-bottom: 6rem;
+            margin-bottom: 4rem;
         }
 
         .pillar-card {
@@ -257,7 +263,82 @@
             line-height: 1.6;
         }
 
-        /* Team Grid Section */
+        /* Quick Navigation Container */
+        .quick-nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-bottom: 3.5rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .quick-video-btn {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid var(--primary-accent);
+            color: var(--primary-accent);
+        }
+
+        .quick-video-btn:hover {
+            background: var(--primary-accent);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .quick-team-btn {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid var(--secondary-accent);
+            color: var(--secondary-accent);
+        }
+
+        .quick-team-btn:hover {
+            background: var(--secondary-accent);
+            color: #000;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* Video Showcase Section */
+        .video-section {
+            padding-bottom: 4rem;
+        }
+
+        .video-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(168, 85, 247, 0.15);
+            overflow: hidden;
+        }
+
+        .feature-video {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            border-radius: 16px;
+            display: block;
+            background: #000;
+            object-fit: contain;
+        }
+
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -280,7 +361,6 @@
             padding-bottom: 6rem;
         }
 
-        /* Member Card Styling */
         .member-card {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
@@ -344,7 +424,6 @@
             border: 1px solid rgba(6, 182, 212, 0.2);
         }
 
-        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -491,7 +570,6 @@
             color: #fff;
         }
 
-        /* Responsive Breakpoints */
         @media (max-width: 1024px) {
             .team-grid { grid-template-columns: repeat(2, 1fr); }
             .pillars-grid { grid-template-columns: 1fr; }
@@ -502,134 +580,125 @@
             .hero h1 { font-size: 2.8rem; }
             nav ul { display: none; }
         }
-        /* Social Media Section & Spacing Gap */
-#socials {
-    padding: 5rem 0 7rem;
-    margin-top: 4rem;
-    border-top: 1px solid var(--border-color);
-    scroll-margin-top: 100px;
-}
 
-.socials-container {
-    text-align: center;
-}
+        #socials {
+            padding: 5rem 0 7rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            scroll-margin-top: 100px;
+        }
 
-.socials-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
+        .socials-container {
+            text-align: center;
+        }
 
-.socials-subtitle {
-    color: var(--text-dim);
-    font-size: 1rem;
-    margin-bottom: 3rem;
-}
+        .socials-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
 
-.socials-grid {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
+        .socials-subtitle {
+            color: var(--text-dim);
+            font-size: 1rem;
+            margin-bottom: 3rem;
+        }
 
-/* Animated Hover Cards */
-.social-card {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    background: var(--bg-card);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 1.25rem 2.2rem;
-    text-decoration: none;
-    color: var(--text-white);
-    min-width: 280px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+        .socials-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
 
-.social-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: 0;
-}
+        .social-card {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.25rem 2.2rem;
+            text-decoration: none;
+            color: var(--text-white);
+            min-width: 280px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-/* Platform Gradient Colors */
-.social-card.instagram::before {
-    background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(253, 29, 29, 0.25), rgba(245, 130, 32, 0.25));
-}
+        .social-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
 
-.social-card.twitter::before {
-    background: linear-gradient(135deg, rgba(29, 155, 240, 0.25), rgba(255, 255, 255, 0.1));
-}
+        .social-card.instagram::before {
+            background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(253, 29, 29, 0.25), rgba(245, 130, 32, 0.25));
+        }
 
-/* Hover Change Animations */
-.social-card:hover {
-    transform: translateY(-8px) scale(1.03);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.25);
-}
+        .social-card.twitter::before {
+            background: linear-gradient(135deg, rgba(29, 155, 240, 0.25), rgba(255, 255, 255, 0.1));
+        }
 
-.social-card:hover::before {
-    opacity: 1;
-}
+        .social-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.25);
+        }
 
-.social-icon {
-    width: 28px;
-    height: 28px;
-    position: relative;
-    z-index: 1;
-    transition: transform 0.4s ease, color 0.4s ease;
-}
+        .social-card:hover::before {
+            opacity: 1;
+        }
 
-.social-card:hover .social-icon {
-    transform: rotate(-8px) scale(1.15);
-}
+        .social-icon {
+            width: 28px;
+            height: 28px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.4s ease, color 0.4s ease;
+        }
 
-.social-card.instagram:hover .social-icon {
-    color: #e1306c;
-}
+        .social-card:hover .social-icon {
+            transform: rotate(-8px) scale(1.15);
+        }
 
-.social-card.twitter:hover .social-icon {
-    color: #1d9bf0;
-}
+        .social-card.instagram:hover .social-icon {
+            color: #e1306c;
+        }
 
-.social-info {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    position: relative;
-    z-index: 1;
-}
+        .social-card.twitter:hover .social-icon {
+            color: #1d9bf0;
+        }
 
-.social-platform {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-}
+        .social-info {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+        }
 
-.social-handle {
-    font-size: 0.85rem;
-    color: var(--text-dim);
-    transition: color 0.3s;
-}
+        .social-platform {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
 
-.social-card:hover .social-handle {
-    color: #ffffff;
-}
-        .nav-btn {
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-    /* Keeps your existing gradient and padding styling */
-}
+        .social-handle {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            transition: color 0.3s;
+        }
+
+        .social-card:hover .social-handle {
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -640,7 +709,6 @@
         <!-- Quick Links Navbar -->
         <header id="home">
             <a href="#home" class="brand-logo-link" title="Jump to top">
-                <!-- Replace with your uploaded image file name or link -->
                 <img src="WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg" alt="Odyssey Logo" class="brand-logo-img">
                 <span class="brand-title">ODYSSEY</span>
             </a>
@@ -649,6 +717,7 @@
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
+                    <li><a href="#featured-video">Featured Video</a></li>
                     <li><a href="#team">Team Members</a></li>
                     <li><a href="#socials">Social Media</a></li>
                 </ul>
@@ -658,8 +727,9 @@
 
         <!-- Hero & Tagline Section -->
         <section class="hero" id="about">
+            <!-- Hero Logo Image -->
             <div class="hero-logo-box">
-                <img src="WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg" alt="Odyssey Official Logo">
+                <img src="WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg" alt="Odyssey Logo" class="hero-logo-img">
             </div>
 
             <div class="hero-badge">⚡ Innovation & Excellence</div>
@@ -684,6 +754,26 @@
                     <p>Turn our collective vision into reality through relentless dedication, seamless collaboration, and technical excellence.</p>
                 </div>
             </div>
+
+            <!-- Quick Navigation Link Container -->
+            <div class="quick-nav-container">
+                <a href="#featured-video" class="quick-nav-btn quick-video-btn">Watch Video ↓</a>
+                <a href="#team" class="quick-nav-btn quick-team-btn">Jump to Team Members ↓</a>
+            </div>
+        </section>
+
+        <!-- Video Showcase Section -->
+        <section id="featured-video" class="video-section">
+            <div class="section-header">
+                <h2 class="section-title">Featured Video</h2>
+                <span style="color: var(--text-dim); font-size: 0.9rem;">Team Odyssey Presentation</span>
+            </div>
+            <div class="video-card">
+                <video class="feature-video" controls playsinline preload="metadata">
+                    <source src="https://www.image2url.com/r2/default/videos/1784743644866-bd51c963-f487-4d3a-a7ff-74f91371151b.mp4" type="video/mp4">
+                    Your browser does not support the video element.
+                </video>
+            </div>
         </section>
 
         <!-- Team Roster Section -->
@@ -698,44 +788,45 @@
             </div>
         </section>
     </div>
-    <!-- Social Media Quick Link Section -->
-<section id="socials">
-    <div class="socials-container">
-        <h2 class="socials-title">Connect With Us</h2>
-        <p class="socials-subtitle">Follow Team Odyssey for live updates, behind-the-scenes content, and announcements.</p>
-        
-        <div class="socials-grid">
-            <!-- Instagram Link -->
-            <a href="https://www.instagram.com/odysseyyy.in?igsh=em80bXIybTFhMTR0" target="_blank" rel="noopener noreferrer" class="social-card instagram">
-                <div class="social-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                </div>
-                <div class="social-info">
-                    <span class="social-platform">Instagram</span>
-                    <span class="social-handle">@odysseyyy.in</span>
-                </div>
-            </a>
 
-            <!-- X (Twitter) Link -->
-            <a href="https://x.com/Odesseyyyyin" target="_blank" rel="noopener noreferrer" class="social-card twitter">
-                <div class="social-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
-                        <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
-                    </svg>
-                </div>
-                <div class="social-info">
-                    <span class="social-platform">X (Twitter)</span>
-                    <span class="social-handle">@Odesseyyyyin</span>
-                </div>
-            </a>
+    <!-- Social Media Quick Link Section -->
+    <section id="socials">
+        <div class="socials-container">
+            <h2 class="socials-title">Connect With Us</h2>
+            <p class="socials-subtitle">Follow Team Odyssey for live updates, behind-the-scenes content, and announcements.</p>
+            
+            <div class="socials-grid">
+                <!-- Instagram Link -->
+                <a href="https://www.instagram.com/odysseyyy.in?igsh=em80bXIybTFhMTR0" target="_blank" rel="noopener noreferrer" class="social-card instagram">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </div>
+                    <div class="social-info">
+                        <span class="social-platform">Instagram</span>
+                        <span class="social-handle">@odysseyyy.in</span>
+                    </div>
+                </a>
+
+                <!-- X (Twitter) Link -->
+                <a href="https://x.com/Odesseyyyyin" target="_blank" rel="noopener noreferrer" class="social-card twitter">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+                            <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+                        </svg>
+                    </div>
+                    <div class="social-info">
+                        <span class="social-platform">X (Twitter)</span>
+                        <span class="social-handle">@Odesseyyyyin</span>
+                    </div>
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Edit/Details Modal Window -->
     <div class="modal-overlay" id="profileModal">
@@ -902,31 +993,31 @@
         }
 
         renderTeam();
-        // Array of section IDs in the order you want to scroll through
-const sections = ['about', 'team', 'socials'];
-let currentSectionIndex = 0;
 
-function cycleSections() {
-    // Increment index to target the next section, loop back to start if at the end
-    currentSectionIndex = (currentSectionIndex + 1) % sections.length;
-    
-    const targetId = sections[currentSectionIndex];
-    const targetSection = document.getElementById(targetId);
-    
-    if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth' });
-    }
+        const sections = ['about', 'featured-video', 'team', 'socials'];
+        let currentSectionIndex = 0;
 
-    // Update button text to reflect the NEXT destination
-    const btn = document.getElementById('cycleBtn');
-    if (currentSectionIndex === 0) {
-        btn.innerHTML = 'View team ↓';
-    } else if (currentSectionIndex === 1) {
-        btn.innerHTML = 'Connect With Us ↓';
-    } else {
-        btn.innerHTML = 'Back to Top ↑';
-    }
-}
+        function cycleSections() {
+            currentSectionIndex = (currentSectionIndex + 1) % sections.length;
+            
+            const targetId = sections[currentSectionIndex];
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            const btn = document.getElementById('cycleBtn');
+            if (currentSectionIndex === 0) {
+                btn.innerHTML = 'Watch Video ↓';
+            } else if (currentSectionIndex === 1) {
+                btn.innerHTML = 'View team ↓';
+            } else if (currentSectionIndex === 2) {
+                btn.innerHTML = 'Connect With Us ↓';
+            } else {
+                btn.innerHTML = 'Back to Top ↑';
+            }
+        }
     </script>
 </body>
 </html>
