@@ -502,6 +502,128 @@
             .hero h1 { font-size: 2.8rem; }
             nav ul { display: none; }
         }
+        /* Social Media Section & Spacing Gap */
+#socials {
+    padding: 5rem 0 7rem;
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
+    scroll-margin-top: 100px;
+}
+
+.socials-container {
+    text-align: center;
+}
+
+.socials-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.socials-subtitle {
+    color: var(--text-dim);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+}
+
+.socials-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Animated Hover Cards */
+.social-card {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 1.25rem 2.2rem;
+    text-decoration: none;
+    color: var(--text-white);
+    min-width: 280px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.social-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+}
+
+/* Platform Gradient Colors */
+.social-card.instagram::before {
+    background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(253, 29, 29, 0.25), rgba(245, 130, 32, 0.25));
+}
+
+.social-card.twitter::before {
+    background: linear-gradient(135deg, rgba(29, 155, 240, 0.25), rgba(255, 255, 255, 0.1));
+}
+
+/* Hover Change Animations */
+.social-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.25);
+}
+
+.social-card:hover::before {
+    opacity: 1;
+}
+
+.social-icon {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.4s ease, color 0.4s ease;
+}
+
+.social-card:hover .social-icon {
+    transform: rotate(-8px) scale(1.15);
+}
+
+.social-card.instagram:hover .social-icon {
+    color: #e1306c;
+}
+
+.social-card.twitter:hover .social-icon {
+    color: #1d9bf0;
+}
+
+.social-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.social-platform {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.social-handle {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    transition: color 0.3s;
+}
+
+.social-card:hover .social-handle {
+    color: #ffffff;
+}
     </style>
 </head>
 <body>
@@ -522,6 +644,7 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#team">Team Members</a></li>
+                    <li><a href="#socials">Social Media</a></li>
                 </ul>
             </nav>
             <a href="#team" class="nav-btn">View Roster ↓</a>
@@ -569,6 +692,44 @@
             </div>
         </section>
     </div>
+    <!-- Social Media Quick Link Section -->
+<section id="socials">
+    <div class="socials-container">
+        <h2 class="socials-title">Connect With Us</h2>
+        <p class="socials-subtitle">Follow Team Odyssey for live updates, behind-the-scenes content, and announcements.</p>
+        
+        <div class="socials-grid">
+            <!-- Instagram Link -->
+            <a href="https://www.instagram.com/odysseyyy.in?igsh=em80bXIybTFhMTR0" target="_blank" rel="noopener noreferrer" class="social-card instagram">
+                <div class="social-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </div>
+                <div class="social-info">
+                    <span class="social-platform">Instagram</span>
+                    <span class="social-handle">@odysseyyy.in</span>
+                </div>
+            </a>
+
+            <!-- X (Twitter) Link -->
+            <a href="https://x.com/Odesseyyyyin" target="_blank" rel="noopener noreferrer" class="social-card twitter">
+                <div class="social-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+                        <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+                    </svg>
+                </div>
+                <div class="social-info">
+                    <span class="social-platform">X (Twitter)</span>
+                    <span class="social-handle">@Odesseyyyyin</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
 
     <!-- Edit/Details Modal Window -->
     <div class="modal-overlay" id="profileModal">
