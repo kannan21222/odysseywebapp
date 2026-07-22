@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Odyssey | Kairoz Portal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap');
+
+        :root {
+            --bg-main: #05070f;
+            --bg-card: rgba(13, 18, 30, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(168, 85, 247, 0.4);
+            --primary-accent: #a855f7;
+            --secondary-accent: #06b6d4;
+            --pink-accent: #ec4899;
+            --text-white: #f8fafc;
+            --text-dim: #94a3b8;
+            --modal-bg: #0d121f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Scroll Offset for Quick Link Jump Visual Clearance */
+        section, header {
+            scroll-margin-top: 100px;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 15%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 65%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 90%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Ambient Grid */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Fixed Navigation Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+            background: rgba(5, 7, 15, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Brand Logo Quick Link */
+        .brand-logo-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .brand-logo-link:hover {
+            opacity: 0.85;
+        }
+
+        .brand-logo-img {
+            height: 42px;
+            width: auto;
+            border-radius: 8px;
+            background: #ffffff;
+            padding: 3px;
+        }
+
+        .brand-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary-accent) 50%, var(--secondary-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        nav a:hover {
+            color: var(--text-white);
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+            color: #fff;
+            padding: 0.65rem 1.4rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.88rem;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem 3rem;
+        }
+
+        .hero-logo-box {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 1.8rem;
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 12px;
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1.2rem;
+            border-radius: 9999px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: var(--primary-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 0.8rem;
+            letter-spacing: -1px;
+            background: linear-gradient(180deg, #ffffff 40%, var(--text-dim) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--secondary-accent);
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 3.5rem;
+        }
+
+        /* Tagline Pillars Cards */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            margin-bottom: 6rem;
+        }
+
+        .pillar-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.2rem 1.8rem;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            border-color: rgba(168, 85, 247, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(168, 85, 247, 0.15);
+        }
+
+        .pillar-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .pillar-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 0.6rem;
+        }
+
+        .pillar-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Team Grid Section */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding-bottom: 6rem;
+        }
+
+        /* Member Card Styling */
+        .member-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        .member-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary-accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(6, 182, 212, 0.2);
+        }
+
+        .avatar-box {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .avatar-box img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--secondary-accent);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+            transition: transform 0.3s ease;
+        }
+
+        .member-card:hover .avatar-box img {
+            transform: scale(1.08);
+            border-color: #ffffff;
+        }
+
+        .member-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            color: var(--text-white);
+        }
+
+        .role-badge {
+            display: inline-block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--secondary-accent);
+            background: rgba(6, 182, 212, 0.08);
+            padding: 0.35rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 6, 12, 0.85);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: var(--modal-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 28px;
+            width: 90%;
+            max-width: 600px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(168, 85, 247, 0.2);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 36px; height: 36px;
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+            border-color: var(--primary-accent);
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .modal-header img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-accent);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--primary-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary-accent) 0%, var(--pink-accent) 100%);
+            color: #fff;
+            border: none;
+            padding: 0.85rem 1.8rem;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+        }
+
+        .btn-cancel {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-dim);
+            padding: 0.85rem 1.5rem;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover {
+            border-color: #fff;
+            color: #fff;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .pillars-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .team-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.8rem; }
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <div class="container">
+        <!-- Quick Links Navbar -->
+        <header id="home">
+            <a href="#home" class="brand-logo-link" title="Jump to top">
+                <!-- Replace with your uploaded image file name or link -->
+                <img src="WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg" alt="Odyssey Logo" class="brand-logo-img">
+                <span class="brand-title">ODYSSEY</span>
+            </a>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#team">Team Members</a></li>
+                </ul>
+            </nav>
+            <a href="#team" class="nav-btn">View Roster ↓</a>
+        </header>
+
+        <!-- Hero & Tagline Section -->
+        <section class="hero" id="about">
+            <div class="hero-logo-box">
+                <img src="WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg" alt="Odyssey Official Logo">
+            </div>
+
+            <div class="hero-badge">⚡ Innovation & Excellence</div>
+            <h1>TEAM ODYSSEY</h1>
+            <div class="tagline-sub">"Inspire. Empower. Achieve."</div>
+
+            <!-- Pillars Breakdown Cards -->
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <span class="pillar-icon">💡</span>
+                    <h3>Inspire</h3>
+                    <p>Spark ideas, creativity, and motivation in ourselves and others to push past conventional boundaries.</p>
+                </div>
+                <div class="pillar-card">
+                    <span class="pillar-icon">⚡</span>
+                    <h3>Empower</h3>
+                    <p>Equip every team member with the confidence, skills, and continuous support needed to excel.</p>
+                </div>
+                <div class="pillar-card">
+                    <span class="pillar-icon">🎯</span>
+                    <h3>Achieve</h3>
+                    <p>Turn our collective vision into reality through relentless dedication, seamless collaboration, and technical excellence.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Roster Section -->
+        <section id="team">
+            <div class="section-header">
+                <h2 class="section-title">Team Roster</h2>
+                <span style="color: var(--text-dim); font-size: 0.9rem;">Click any card to edit details</span>
+            </div>
+
+            <div class="team-grid" id="teamGrid">
+                <!-- Dynamic 8 Team Members -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Edit/Details Modal Window -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            
+            <form id="profileForm" onsubmit="saveProfile(event)">
+                <div class="modal-header">
+                    <img id="modalAvatar" src="" alt="Profile Photo">
+                    <div style="flex-grow: 1;">
+                        <div class="form-group">
+                            <label>Member Name</label>
+                            <input type="text" id="editName" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Role / Position</label>
+                            <input type="text" id="editRole" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Profile Image Link</label>
+                    <input type="url" id="editImage" placeholder="https://..." onchange="updateAvatarPreview(this.value)">
+                </div>
+
+                <div class="form-group">
+                    <label>Bio / Personal Notes</label>
+                    <textarea id="editBio" rows="4" placeholder="Enter biography, skills, or specialized roles..."></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-submit">Save Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const defaultMembers = [
+            {
+                id: 1,
+                name: "GAYATHRI P A",
+                role: "TEAM CAPTAIN",
+                image: "https://www.image2url.com/r2/default/images/1784639892700-f23a3f52-cfb0-46ff-8045-8482ce0551c1.jpeg",
+                bio: ""
+            },
+            {
+                id: 2,
+                name: "ARDRA M MENON",
+                role: "TEAM VICE CAPTAIN",
+                image: "https://cdn.phototourl.com/free/2026-07-21-2b05ce64-8f37-4ea6-85e3-9c64cf36b384.jpg",
+                bio: ""
+            },
+            {
+                id: 3,
+                name: "ABHINAV S",
+                role: "TECHNICAL HEAD",
+                image: "https://www.image2url.com/r2/default/images/1784640195984-b4910fa2-c1cf-4abf-bc3e-ca7d371b592d.jpeg",
+                bio: ""
+            },
+            {
+                id: 4,
+                name: "AAFRIN HIDAYATH P K",
+                role: "Team Member",
+                image: "https://cdn.phototourl.com/free/2026-07-21-ad56dfbe-f25a-478c-a869-aab628b3171f.jpg",
+                bio: "• Specialization: Editing"
+            },
+            {
+                id: 5,
+                name: "ATHIRA SURESH",
+                role: "Team Member",
+                image: "https://cdn.phototourl.com/free/2026-07-21-7b5bdee1-cdff-45fa-952b-ac460012fb7e.jpg",
+                bio: ""
+            },
+            {
+                id: 6,
+                name: "GOUTHAM R",
+                role: "Team Member",
+                image: "https://cdn.phototourl.com/free/2026-07-21-440583c3-afe1-4df0-9af7-423fee8ada04.jpg",
+                bio: "• Hobby/Skill: Violin"
+            },
+            {
+                id: 7,
+                name: "ADWAITH K C",
+                role: "Team Member",
+                image: "https://cdn.phototourl.com/member/2026-07-21-e48e44f0-993e-48c0-a689-0678fecbf2d4.jpg",
+                bio: ""
+            },
+            {
+                id: 8,
+                name: "DEEPAK S",
+                role: "Team Member",
+                image: "https://cdn.phototourl.com/free/2026-07-21-70fe3754-8ef5-4489-b35b-f3842cbd94ef.jpg",
+                bio: ""
+            }
+        ];
+
+        let members = JSON.parse(localStorage.getItem('odyssey_team_v9')) || defaultMembers;
+        let activeMemberId = null;
+
+        function renderTeam() {
+            const grid = document.getElementById('teamGrid');
+            grid.innerHTML = '';
+
+            members.forEach(member => {
+                const card = document.createElement('div');
+                card.className = 'member-card';
+                card.onclick = () => openModal(member.id);
+                card.innerHTML = `
+                    <div class="avatar-box">
+                        <img src="${member.image}" alt="${member.name}" onerror="this.src='https://via.placeholder.com/150'">
+                    </div>
+                    <h3>${member.name}</h3>
+                    <span class="role-badge">${member.role}</span>
+                `;
+                grid.appendChild(card);
+            });
+
+            localStorage.setItem('odyssey_team_v9', JSON.stringify(members));
+        }
+
+        function openModal(id) {
+            activeMemberId = id;
+            const member = members.find(m => m.id === id);
+            
+            if (!member) return;
+
+            document.getElementById('editName').value = member.name;
+            document.getElementById('editRole').value = member.role;
+            document.getElementById('editImage').value = member.image;
+            document.getElementById('modalAvatar').src = member.image;
+            document.getElementById('editBio').value = member.bio || '';
+
+            document.getElementById('profileModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('profileModal').classList.remove('active');
+            activeMemberId = null;
+        }
+
+        function updateAvatarPreview(url) {
+            document.getElementById('modalAvatar').src = url;
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            
+            const memberIndex = members.findIndex(m => m.id === activeMemberId);
+            if (memberIndex === -1) return;
+
+            members[memberIndex] = {
+                id: activeMemberId,
+                name: document.getElementById('editName').value,
+                role: document.getElementById('editRole').value,
+                image: document.getElementById('editImage').value,
+                bio: document.getElementById('editBio').value
+            };
+
+            renderTeam();
+            closeModal();
+        }
+
+        renderTeam();
+    </script>
+</body>
+</html>
