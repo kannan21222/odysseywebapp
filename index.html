@@ -29,7 +29,7 @@
         }
 
         section, header {
-            scroll-margin-top: 100px;
+            scroll-margin-top: 100px; /* Adjust based on header height */
         }
 
         body {
@@ -152,7 +152,6 @@
             padding: 4rem 1rem 3rem;
         }
 
-        /* Hero Image Container */
         .hero-logo-box {
             width: 160px;
             height: 160px;
@@ -263,7 +262,6 @@
             line-height: 1.6;
         }
 
-        /* Quick Navigation Container */
         .quick-nav-container {
             display: flex;
             justify-content: center;
@@ -312,7 +310,6 @@
             transform: translateY(-3px);
         }
 
-        /* Video Showcase Section */
         .video-section {
             padding-bottom: 4rem;
         }
@@ -582,7 +579,7 @@
         }
 
         #socials {
-            padding: 5rem 0 7rem;
+            padding: 5rem 0 3rem;
             margin-top: 4rem;
             border-top: 1px solid var(--border-color);
             scroll-margin-top: 100px;
@@ -699,6 +696,87 @@
         .social-card:hover .social-handle {
             color: #ffffff;
         }
+
+        /* Puzzle Section Styling */
+        #puzzle {
+            padding: 5rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .puzzle-container {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 650px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        #puzzleCanvas {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.05);
+            cursor: grab;
+            max-width: 100%;
+            height: auto;
+        }
+
+        #puzzleCanvas:active {
+            cursor: grabbing;
+        }
+
+        .puzzle-controls {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .puzzle-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-shuffle {
+            background: transparent;
+            border: 1px solid var(--secondary-accent);
+            color: var(--secondary-accent);
+        }
+
+        .btn-shuffle:hover {
+            background: rgba(6, 182, 212, 0.1);
+            transform: translateY(-2px);
+        }
+
+        #congratsMessage {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(13, 18, 30, 0.95);
+            border: 2px solid var(--primary-accent);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 0 30px var(--border-glow);
+            z-index: 10;
+        }
+
+        #congratsMessage h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--primary-accent);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -720,6 +798,7 @@
                     <li><a href="#featured-video">Featured Video</a></li>
                     <li><a href="#team">Team Members</a></li>
                     <li><a href="#socials">Social Media</a></li>
+                    <li><a href="#puzzle">Logo Puzzle</a></li>
                 </ul>
             </nav>
             <button id="cycleBtn" class="nav-btn" onclick="cycleSections()">Explore Site ↓</button>
@@ -727,7 +806,6 @@
 
         <!-- Hero & Tagline Section -->
         <section class="hero" id="about">
-            <!-- Hero Logo Image -->
             <div class="hero-logo-box">
                 <img src="WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg" alt="Odyssey Logo" class="hero-logo-img">
             </div>
@@ -736,7 +814,6 @@
             <h1>TEAM ODYSSEY</h1>
             <div class="tagline-sub">"Inspire. Empower. Achieve."</div>
 
-            <!-- Pillars Breakdown Cards -->
             <div class="pillars-grid">
                 <div class="pillar-card">
                     <span class="pillar-icon">💡</span>
@@ -755,7 +832,6 @@
                 </div>
             </div>
 
-            <!-- Quick Navigation Link Container -->
             <div class="quick-nav-container">
                 <a href="#featured-video" class="quick-nav-btn quick-video-btn">Watch Video ↓</a>
                 <a href="#team" class="quick-nav-btn quick-team-btn">Jump to Team Members ↓</a>
@@ -796,7 +872,6 @@
             <p class="socials-subtitle">Follow Team Odyssey for live updates, behind-the-scenes content, and announcements.</p>
             
             <div class="socials-grid">
-                <!-- Instagram Link -->
                 <a href="https://www.instagram.com/odysseyyy.in?igsh=em80bXIybTFhMTR0" target="_blank" rel="noopener noreferrer" class="social-card instagram">
                     <div class="social-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -811,7 +886,6 @@
                     </div>
                 </a>
 
-                <!-- X (Twitter) Link -->
                 <a href="https://x.com/Odesseyyyyin" target="_blank" rel="noopener noreferrer" class="social-card twitter">
                     <div class="social-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -828,11 +902,31 @@
         </div>
     </section>
 
+    <!-- Puzzle Section -->
+    <section id="puzzle">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Assemble Our Vision</h2>
+                <span style="color: var(--text-dim); font-size: 0.9rem;">Drag the pieces to complete the logo</span>
+            </div>
+            <div class="puzzle-container">
+                <canvas id="puzzleCanvas" width="500" height="500"></canvas>
+                <div id="congratsMessage">
+                    <h3>Empowered!</h3>
+                    <p>You've assembled the shared vision of Team Odyssey.</p>
+                    <button class="puzzle-btn nav-btn" style="margin-top:1rem;" onclick="initPuzzle()">Play Again</button>
+                </div>
+                <div class="puzzle-controls">
+                    <button class="puzzle-btn btn-shuffle" onclick="shufflePieces()">Shuffle</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Edit/Details Modal Window -->
     <div class="modal-overlay" id="profileModal">
         <div class="modal">
             <button class="close-btn" onclick="closeModal()">&times;</button>
-            
             <form id="profileForm" onsubmit="saveProfile(event)">
                 <div class="modal-header">
                     <img id="modalAvatar" src="" alt="Profile Photo">
@@ -847,17 +941,14 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>Profile Image Link</label>
                     <input type="url" id="editImage" placeholder="https://..." onchange="updateAvatarPreview(this.value)">
                 </div>
-
                 <div class="form-group">
                     <label>Bio / Personal Notes</label>
                     <textarea id="editBio" rows="4" placeholder="Enter biography, skills, or specialized roles..."></textarea>
                 </div>
-
                 <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
                     <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
                     <button type="submit" class="btn-submit">Save Profile</button>
@@ -868,62 +959,14 @@
 
     <script>
         const defaultMembers = [
-            {
-                id: 1,
-                name: "GAYATHRI P A",
-                role: "TEAM CAPTAIN",
-                image: "https://www.image2url.com/r2/default/images/1784639892700-f23a3f52-cfb0-46ff-8045-8482ce0551c1.jpeg",
-                bio: ""
-            },
-            {
-                id: 2,
-                name: "ARDRA M MENON",
-                role: "TEAM VICE CAPTAIN",
-                image: "https://cdn.phototourl.com/free/2026-07-21-2b05ce64-8f37-4ea6-85e3-9c64cf36b384.jpg",
-                bio: ""
-            },
-            {
-                id: 3,
-                name: "ABHINAV S",
-                role: "TECHNICAL HEAD",
-                image: "https://www.image2url.com/r2/default/images/1784640195984-b4910fa2-c1cf-4abf-bc3e-ca7d371b592d.jpeg",
-                bio: ""
-            },
-            {
-                id: 4,
-                name: "AAFRIN HIDAYATH P K",
-                role: "Team Member",
-                image: "https://cdn.phototourl.com/free/2026-07-21-ad56dfbe-f25a-478c-a869-aab628b3171f.jpg",
-                bio: "• Specialization: Editing"
-            },
-            {
-                id: 5,
-                name: "ATHIRA SURESH",
-                role: "Team Member",
-                image: "https://cdn.phototourl.com/free/2026-07-21-7b5bdee1-cdff-45fa-952b-ac460012fb7e.jpg",
-                bio: ""
-            },
-            {
-                id: 6,
-                name: "GOUTHAM R",
-                role: "Team Member",
-                image: "https://cdn.phototourl.com/free/2026-07-21-440583c3-afe1-4df0-9af7-423fee8ada04.jpg",
-                bio: "• Hobby/Skill: Violin"
-            },
-            {
-                id: 7,
-                name: "ADWAITH K C",
-                role: "Team Member",
-                image: "https://cdn.phototourl.com/member/2026-07-21-e48e44f0-993e-48c0-a689-0678fecbf2d4.jpg",
-                bio: ""
-            },
-            {
-                id: 8,
-                name: "DEEPAK S",
-                role: "Team Member",
-                image: "https://cdn.phototourl.com/free/2026-07-21-70fe3754-8ef5-4489-b35b-f3842cbd94ef.jpg",
-                bio: ""
-            }
+            { id: 1, name: "GAYATHRI P A", role: "TEAM CAPTAIN", image: "https://www.image2url.com/r2/default/images/1784639892700-f23a3f52-cfb0-46ff-8045-8482ce0551c1.jpeg", bio: "" },
+            { id: 2, name: "ARDRA M MENON", role: "TEAM VICE CAPTAIN", image: "https://cdn.phototourl.com/free/2026-07-21-2b05ce64-8f37-4ea6-85e3-9c64cf36b384.jpg", bio: "" },
+            { id: 3, name: "ABHINAV S", role: "TECHNICAL HEAD", image: "https://www.image2url.com/r2/default/images/1784640195984-b4910fa2-c1cf-4abf-bc3e-ca7d371b592d.jpeg", bio: "" },
+            { id: 4, name: "AAFRIN HIDAYATH P K", role: "Team Member", image: "https://cdn.phototourl.com/free/2026-07-21-ad56dfbe-f25a-478c-a869-aab628b3171f.jpg", bio: "• Specialization: Editing" },
+            { id: 5, name: "ATHIRA SURESH", role: "Team Member", image: "https://cdn.phototourl.com/free/2026-07-21-7b5bdee1-cdff-45fa-952b-ac460012fb7e.jpg", bio: "" },
+            { id: 6, name: "GOUTHAM R", role: "Team Member", image: "https://cdn.phototourl.com/free/2026-07-21-440583c3-afe1-4df0-9af7-423fee8ada04.jpg", bio: "• Hobby/Skill: Violin" },
+            { id: 7, name: "ADWAITH K C", role: "Team Member", image: "https://cdn.phototourl.com/member/2026-07-21-e48e44f0-993e-48c0-a689-0678fecbf2d4.jpg", bio: "" },
+            { id: 8, name: "DEEPAK S", role: "Team Member", image: "https://cdn.phototourl.com/free/2026-07-21-70fe3754-8ef5-4489-b35b-f3842cbd94ef.jpg", bio: "" }
         ];
 
         let members = JSON.parse(localStorage.getItem('odyssey_team_v9')) || defaultMembers;
@@ -932,7 +975,6 @@
         function renderTeam() {
             const grid = document.getElementById('teamGrid');
             grid.innerHTML = '';
-
             members.forEach(member => {
                 const card = document.createElement('div');
                 card.className = 'member-card';
@@ -946,22 +988,18 @@
                 `;
                 grid.appendChild(card);
             });
-
             localStorage.setItem('odyssey_team_v9', JSON.stringify(members));
         }
 
         function openModal(id) {
             activeMemberId = id;
             const member = members.find(m => m.id === id);
-            
             if (!member) return;
-
             document.getElementById('editName').value = member.name;
             document.getElementById('editRole').value = member.role;
             document.getElementById('editImage').value = member.image;
             document.getElementById('modalAvatar').src = member.image;
             document.getElementById('editBio').value = member.bio || '';
-
             document.getElementById('profileModal').classList.add('active');
         }
 
@@ -976,10 +1014,8 @@
 
         function saveProfile(event) {
             event.preventDefault();
-            
             const memberIndex = members.findIndex(m => m.id === activeMemberId);
             if (memberIndex === -1) return;
-
             members[memberIndex] = {
                 id: activeMemberId,
                 name: document.getElementById('editName').value,
@@ -987,37 +1023,258 @@
                 image: document.getElementById('editImage').value,
                 bio: document.getElementById('editBio').value
             };
-
             renderTeam();
             closeModal();
         }
 
         renderTeam();
 
-        const sections = ['about', 'featured-video', 'team', 'socials'];
+        const sections = ['about', 'featured-video', 'team', 'socials', 'puzzle']; 
         let currentSectionIndex = 0;
 
         function cycleSections() {
             currentSectionIndex = (currentSectionIndex + 1) % sections.length;
-            
             const targetId = sections[currentSectionIndex];
             const targetSection = document.getElementById(targetId);
-            
             if (targetSection) {
                 targetSection.scrollIntoView({ behavior: 'smooth' });
             }
-
             const btn = document.getElementById('cycleBtn');
-            if (currentSectionIndex === 0) {
-                btn.innerHTML = 'Watch Video ↓';
-            } else if (currentSectionIndex === 1) {
-                btn.innerHTML = 'View team ↓';
-            } else if (currentSectionIndex === 2) {
-                btn.innerHTML = 'Connect With Us ↓';
-            } else {
-                btn.innerHTML = 'Back to Top ↑';
+            if (currentSectionIndex === 0) { btn.innerHTML = 'Watch Video ↓'; } 
+            else if (currentSectionIndex === 1) { btn.innerHTML = 'View team ↓'; } 
+            else if (currentSectionIndex === 2) { btn.innerHTML = 'Connect With Us ↓'; } 
+            else if (currentSectionIndex === 3) { btn.innerHTML = 'Play Puzzle ↓'; } 
+            else { btn.innerHTML = 'Back to Top ↑'; }
+        }
+
+        // --- IMPROVED JIGSAW PUZZLE JS ---
+        const canvas = document.getElementById('puzzleCanvas');
+        const ctx = canvas.getContext('2d');
+        const congratsInfo = document.getElementById('congratsMessage');
+        const img = new Image();
+        img.src = 'WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg'; 
+
+        const cols = 3;
+        const rows = 3;
+        const pieceCount = cols * rows;
+        const pieces = [];
+        let pieceWidth, pieceHeight;
+        let selectedPiece = null;
+        let isDragging = false;
+        let offset = { x: 0, y: 0 };
+        
+        // --- IMPROVEMENT 1: MASSIVELY INCREASE SNAP TOLERANCE ---
+        // Was 20, now 60. You only need to get "close enough".
+        const snapTolerance = 60; 
+
+        img.onload = function() {
+            pieceWidth = img.width / cols;
+            pieceHeight = img.height / rows;
+            canvas.width = img.width; 
+            canvas.height = img.height;
+            initPuzzle();
+        };
+
+        function initPuzzle() {
+            pieces.length = 0;
+            congratsInfo.style.display = 'none';
+            for (let i = 0; i < pieceCount; i++) {
+                const x = (i % cols) * pieceWidth;
+                const y = Math.floor(i / cols) * pieceHeight;
+                pieces.push({
+                    correctX: x,
+                    correctY: y,
+                    x: x, y: y,   
+                    snapped: true 
+                });
+            }
+            drawPuzzle();
+            setTimeout(shufflePieces, 1000); 
+        }
+
+        function shufflePieces() {
+            congratsInfo.style.display = 'none';
+            
+            // --- IMPROVEMENT 2: SHUFFLE IN THE CENTER AREA ---
+            // Keeps pieces away from edges so they are easier to grab.
+            const padding = 50; 
+            const shuffleAreaWidth = canvas.width - (pieceWidth + padding * 2);
+            const shuffleAreaHeight = canvas.height - (pieceHeight + padding * 2);
+
+            pieces.forEach(p => {
+                p.x = padding + (Math.random() * shuffleAreaWidth);
+                p.y = padding + (Math.random() * shuffleAreaHeight);
+                p.snapped = false;
+            });
+            drawPuzzle();
+        }
+
+        function drawPuzzle() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw hints (ghost image)
+            ctx.globalAlpha = 0.08; // Slightly fainter ghost
+            ctx.drawImage(img, 0, 0);
+            ctx.globalAlpha = 1.0;
+
+            // Draw grid lines
+            ctx.strokeStyle = 'rgba(255,255,255,0.03)'; // Fainter grid
+            ctx.lineWidth = 1;
+            for(let c = 1; c < cols; c++) { ctx.beginPath(); ctx.moveTo(c * pieceWidth, 0); ctx.lineTo(c * pieceWidth, canvas.height); ctx.stroke(); }
+            for(let r = 1; r < rows; r++) { ctx.beginPath(); ctx.moveTo(0, r * pieceHeight); ctx.lineTo(canvas.width, r * pieceHeight); ctx.stroke(); }
+
+            // --- IMPROVEMENT 3: HIGHLIGHT CORRECT DROP ZONE ---
+            // If dragging, draw a ghost outline where the piece *should* go.
+            if (isDragging && selectedPiece) {
+                ctx.save();
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = 'rgba(168, 85, 247, 0.5)'; // Translucent Purple accent
+                ctx.setLineDash([10, 5]); // Dashed line
+                ctx.strokeRect(selectedPiece.correctX, selectedPiece.correctY, pieceWidth, pieceHeight);
+                ctx.restore();
+            }
+
+            // Draw snapped pieces first
+            pieces.forEach(p => {
+                if (p.snapped) drawPiece(p);
+            });
+
+            // Draw non-selected floating pieces
+            pieces.forEach(p => {
+                if (!p.snapped && p !== selectedPiece) drawPiece(p);
+            });
+
+            // Draw selected piece last (on top)
+            if (selectedPiece) {
+                // Glow effect remains while dragging
+                ctx.shadowColor = 'rgba(168, 85, 247, 0.9)'; 
+                ctx.shadowBlur = 25;
+                drawPiece(selectedPiece);
+                ctx.shadowBlur = 0; 
             }
         }
+
+        function drawPiece(p) {
+            ctx.save();
+            if (p.snapped) {
+                // Perfectly aligned clipped image part
+                ctx.drawImage(img, p.correctX, p.correctY, pieceWidth, pieceHeight, p.correctX, p.correctY, pieceWidth, pieceHeight);
+            } else {
+                // Floating pieces get border and slight shadow for depth
+                ctx.lineWidth = selectedPiece === p ? 3 : 1;
+                ctx.strokeStyle = selectedPiece === p ? 'var(--primary-accent)' : 'rgba(255,255,255,0.3)';
+                
+                // --- IMPROVEMENT 4: ADD SHADOW TO FLOATING PIECES ---
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                ctx.shadowBlur = 10;
+                ctx.shadowOffsetX = 3;
+                ctx.shadowOffsetY = 5;
+
+                // Draw clipped image part
+                ctx.beginPath();
+                ctx.rect(p.x, p.y, pieceWidth, pieceHeight);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(img, p.correctX, p.correctY, pieceWidth, pieceHeight, p.x, p.y, pieceWidth, pieceHeight);
+                ctx.restore(); 
+                
+                ctx.save(); // New save for border only (avoids clipping)
+                ctx.lineWidth = selectedPiece === p ? 3 : 1;
+                ctx.strokeStyle = selectedPiece === p ? 'var(--primary-accent)' : 'rgba(255,255,255,0.3)';
+                ctx.strokeRect(p.x, p.y, pieceWidth, pieceHeight);
+                ctx.restore();
+            }
+            ctx.restore();
+        }
+
+        function checkCompletion() {
+            if (pieces.every(p => p.snapped)) {
+                setTimeout(() => {
+                    congratsInfo.style.display = 'block';
+                }, 300);
+            }
+        }
+
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;    
+            const scaleY = canvas.height / rect.height;  
+            
+            let clientX, clientY;
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
+            return {
+                x: (clientX - rect.left) * scaleX,
+                y: (clientY - rect.top) * scaleY
+            };
+        }
+
+        function onMouseDown(e) {
+            if (congratsInfo.style.display === 'block') return; 
+            const mousePos = getMousePos(e);
+            
+            selectedPiece = null;
+            for (let i = pieces.length - 1; i >= 0; i--) {
+                const p = pieces[i];
+                // Increased visual target area slightly for easier selection on mobile
+                const targetPadding = 10;
+                if (!p.snapped && mousePos.x > p.x - targetPadding && mousePos.x < p.x + pieceWidth + targetPadding && mousePos.y > p.y - targetPadding && mousePos.y < p.y + pieceHeight + targetPadding) {
+                    selectedPiece = p;
+                    // Reset offset to exact grab point
+                    offset.x = mousePos.x - p.x;
+                    offset.y = mousePos.y - p.y;
+                    isDragging = true;
+                    
+                    pieces.push(pieces.splice(i, 1)[0]);
+                    break;
+                }
+            }
+            drawPuzzle();
+        }
+
+        function onMouseMove(e) {
+            if (!isDragging || !selectedPiece) return;
+            const mousePos = getMousePos(e);
+            
+            selectedPiece.x = mousePos.x - offset.x;
+            selectedPiece.y = mousePos.y - offset.y;
+            
+            drawPuzzle();
+        }
+
+        function onMouseUp() {
+            if (!isDragging || !selectedPiece) {
+                isDragging = false;
+                return;
+            }
+
+            if (Math.abs(selectedPiece.x - selectedPiece.correctX) < snapTolerance &&
+                Math.abs(selectedPiece.y - selectedPiece.correctY) < snapTolerance) {
+                selectedPiece.x = selectedPiece.correctX;
+                selectedPiece.y = selectedPiece.correctY;
+                selectedPiece.snapped = true;
+                selectedPiece = null; 
+                checkCompletion();
+            }
+
+            isDragging = false;
+            drawPuzzle(); 
+        }
+
+        canvas.addEventListener('mousedown', onMouseDown);
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+
+        canvas.addEventListener('touchstart', (e) => { onMouseDown(e); e.preventDefault(); }, {passive: false});
+        window.addEventListener('touchmove', (e) => { onMouseMove(e); }, {passive: false});
+        window.addEventListener('touchend', onMouseUp);
+
     </script>
 </body>
 </html>
