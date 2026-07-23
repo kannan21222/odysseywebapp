@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Odyssey | Kairoz Portal</title>
+    <title>Team Odyssey | Kairoz Portal & Innovation Hub</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap');
 
@@ -29,7 +29,7 @@
         }
 
         section, header {
-            scroll-margin-top: 100px; /* Adjust based on header height */
+            scroll-margin-top: 100px;
         }
 
         body {
@@ -37,11 +37,18 @@
             color: var(--text-white);
             min-height: 100vh;
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 20% 15%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 65%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 50% 90%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
-            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* BACKGROUND CANVAS */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .grid-bg {
@@ -62,6 +69,7 @@
             z-index: 1;
         }
 
+        /* HEADER & NAV */
         header {
             position: sticky;
             top: 0;
@@ -109,7 +117,7 @@
 
         nav ul {
             display: flex;
-            gap: 2.5rem;
+            gap: 1.8rem;
             list-style: none;
         }
 
@@ -117,7 +125,7 @@
             color: var(--text-dim);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: color 0.3s;
             position: relative;
             padding-bottom: 4px;
@@ -147,24 +155,41 @@
             box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
         }
 
+        /* HERO SECTION */
         .hero {
             text-align: center;
             padding: 4rem 1rem 3rem;
+            perspective: 1000px;
+        }
+
+        .hero-logo-wrapper {
+            display: inline-block;
+            perspective: 1000px;
+            margin-bottom: 1.8rem;
         }
 
         .hero-logo-box {
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 1.8rem;
+            width: 170px;
+            height: 170px;
+            margin: 0 auto;
             background: #ffffff;
             border-radius: 28px;
             padding: 12px;
-            box-shadow: 0 0 40px rgba(168, 85, 247, 0.35);
+            box-shadow: 0 20px 50px rgba(168, 85, 247, 0.4), 0 0 30px rgba(6, 182, 212, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            border: 1px solid var(--border-glow);
+            border: 2px solid var(--border-glow);
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            animation: floatGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-10px); }
         }
 
         .hero-logo-img {
@@ -172,11 +197,7 @@
             height: 100%;
             object-fit: contain;
             border-radius: 16px;
-            transition: transform 0.4s ease;
-        }
-
-        .hero-logo-box:hover .hero-logo-img {
-            transform: scale(1.05);
+            pointer-events: none;
         }
 
         .hero-badge {
@@ -231,15 +252,13 @@
             border-radius: 20px;
             padding: 2.2rem 1.8rem;
             text-align: left;
-            position: relative;
-            overflow: hidden;
             transition: all 0.3s ease;
         }
 
         .pillar-card:hover {
             border-color: rgba(168, 85, 247, 0.4);
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(168, 85, 247, 0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
 
         .pillar-icon {
@@ -262,80 +281,7 @@
             line-height: 1.6;
         }
 
-        .quick-nav-container {
-            display: flex;
-            justify-content: center;
-            gap: 1.2rem;
-            margin-bottom: 3.5rem;
-            flex-wrap: wrap;
-        }
-
-        .quick-nav-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.8rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-
-        .quick-video-btn {
-            background: rgba(168, 85, 247, 0.1);
-            border: 1px solid var(--primary-accent);
-            color: var(--primary-accent);
-        }
-
-        .quick-video-btn:hover {
-            background: var(--primary-accent);
-            color: #fff;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
-            transform: translateY(-3px);
-        }
-
-        .quick-team-btn {
-            background: rgba(6, 182, 212, 0.1);
-            border: 1px solid var(--secondary-accent);
-            color: var(--secondary-accent);
-        }
-
-        .quick-team-btn:hover {
-            background: var(--secondary-accent);
-            color: #000;
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
-            transform: translateY(-3px);
-        }
-
-        .video-section {
-            padding-bottom: 4rem;
-        }
-
-        .video-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border-glow);
-            border-radius: 24px;
-            padding: 1.5rem;
-            max-width: 900px;
-            margin: 0 auto;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(168, 85, 247, 0.15);
-            overflow: hidden;
-        }
-
-        .feature-video {
-            width: 100%;
-            height: auto;
-            max-height: 500px;
-            border-radius: 16px;
-            display: block;
-            background: #000;
-            object-fit: contain;
-        }
-
+        /* SECTION GENERAL */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -351,6 +297,253 @@
             font-weight: 700;
         }
 
+        /* CONTINUOUS MARQUEE GALLERY */
+        #gallery {
+            padding-bottom: 4rem;
+        }
+
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 1.5rem 0;
+            box-sizing: border-box;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .marquee-track {
+            display: inline-flex;
+            gap: 1.5rem;
+            animation: marquee-scroll 28s linear infinite;
+        }
+
+        .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        .marquee-track img {
+            height: 260px;
+            width: auto;
+            border-radius: 16px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, border-color 0.3s;
+        }
+
+        .marquee-track img:hover {
+            transform: scale(1.03);
+            border-color: var(--secondary-accent);
+        }
+
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* QUICK LINKS SECTION */
+        #quick-links {
+            padding-bottom: 4rem;
+        }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .quick-link-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .quick-link-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-accent);
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.25);
+        }
+
+        .quick-link-icon {
+            font-size: 1.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* HUB SECTION */
+        .hub-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .hub-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2rem;
+        }
+
+        .hub-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            color: var(--secondary-accent);
+            margin-bottom: 1rem;
+        }
+
+        .path-selector, .skill-filter {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .path-chip, .filter-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .path-chip.active, .path-chip:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: var(--primary-accent);
+            color: #fff;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: var(--secondary-accent);
+            color: #fff;
+        }
+
+        /* INLINE MATCHED MEMBERS DISPLAY */
+        .matched-members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .matched-member-chip {
+            background: rgba(6, 182, 212, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 14px;
+            padding: 0.8rem 0.5rem;
+            text-align: center;
+            transition: transform 0.2s ease, border-color 0.2s;
+            cursor: pointer;
+        }
+
+        .matched-member-chip:hover {
+            transform: translateY(-2px);
+            border-color: var(--secondary-accent);
+            background: rgba(6, 182, 212, 0.15);
+        }
+
+        .matched-member-chip img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 0.4rem;
+            border: 2px solid var(--secondary-accent);
+        }
+
+        .matched-member-name {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-white);
+            line-height: 1.2;
+        }
+
+        .matched-member-role {
+            font-size: 0.65rem;
+            color: var(--secondary-accent);
+            margin-top: 2px;
+        }
+
+        .flow-display {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 1.2rem;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .flow-step:last-child { margin-bottom: 0; }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--primary-accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* FEATURED VIDEO */
+        .video-section {
+            padding-bottom: 4rem;
+        }
+
+        .video-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .feature-video {
+            width: 100%;
+            max-height: 500px;
+            border-radius: 16px;
+            background: #000;
+        }
+
+        /* TEAM MEMBERS */
         .team-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -366,22 +559,19 @@
             padding: 2.5rem 1.5rem;
             text-align: center;
             cursor: pointer;
+            transition: all 0.35s ease;
             position: relative;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden;
         }
 
         .member-card:hover {
             transform: translateY(-8px);
             border-color: var(--secondary-accent);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(6, 182, 212, 0.2);
         }
 
         .avatar-box {
             width: 110px;
             height: 110px;
             margin: 0 auto 1.5rem;
-            position: relative;
         }
 
         .avatar-box img {
@@ -390,21 +580,12 @@
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--secondary-accent);
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
-            transition: transform 0.3s ease;
-        }
-
-        .member-card:hover .avatar-box img {
-            transform: scale(1.08);
-            border-color: #ffffff;
         }
 
         .member-card h3 {
             font-size: 1.15rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
             margin-bottom: 0.5rem;
-            color: var(--text-white);
         }
 
         .role-badge {
@@ -419,8 +600,103 @@
             padding: 0.35rem 0.85rem;
             border-radius: 8px;
             border: 1px solid rgba(6, 182, 212, 0.2);
+            margin-bottom: 0.6rem;
         }
 
+        .member-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        .tag-chip {
+            font-size: 0.65rem;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-dim);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* SOCIAL MEDIA */
+        #socials {
+            padding: 5rem 0 3rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .socials-container { text-align: center; }
+
+        .socials-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-card {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.25rem 2.2rem;
+            text-decoration: none;
+            color: var(--text-white);
+            min-width: 260px;
+            transition: all 0.3s ease;
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .social-icon { width: 28px; height: 28px; fill: currentColor; }
+
+        /* PUZZLE SECTION */
+        #puzzle {
+            padding: 5rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .puzzle-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 550px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        #puzzleCanvas {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            cursor: grab;
+            max-width: 100%;
+            touch-action: none;
+        }
+
+        #congratsMessage {
+            display: none;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(13, 18, 30, 0.95);
+            border: 2px solid var(--primary-accent);
+            padding: 2.2rem;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        /* MODAL */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -448,13 +724,6 @@
             max-width: 600px;
             padding: 2.5rem;
             position: relative;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(168, 85, 247, 0.2);
-            transform: scale(0.9);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .modal-overlay.active .modal {
-            transform: scale(1);
         }
 
         .close-btn {
@@ -465,48 +734,18 @@
             border-radius: 50%;
             width: 36px; height: 36px;
             color: var(--text-dim);
-            font-size: 1.2rem;
             cursor: pointer;
-            transition: all 0.2s;
         }
 
-        .close-btn:hover {
-            color: #fff;
-            border-color: var(--primary-accent);
-            background: rgba(168, 85, 247, 0.1);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .modal-header img {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--primary-accent);
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
+        .form-group { margin-bottom: 1.25rem; }
 
         .form-group label {
             display: block;
-            font-family: 'Space Grotesk', sans-serif;
             font-size: 0.75rem;
             font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
             color: var(--primary-accent);
             margin-bottom: 0.5rem;
+            text-transform: uppercase;
         }
 
         .form-group input, .form-group textarea {
@@ -516,60 +755,11 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             color: #fff;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, var(--primary-accent) 0%, var(--pink-accent) 100%);
-            color: #fff;
-            border: none;
-            padding: 0.85rem 1.8rem;
-            border-radius: 12px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.25s;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
-        }
-
-        .btn-cancel {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: var(--text-dim);
-            padding: 0.85rem 1.5rem;
-            border-radius: 12px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-cancel:hover {
-            border-color: #fff;
-            color: #fff;
         }
 
         @media (max-width: 1024px) {
             .team-grid { grid-template-columns: repeat(2, 1fr); }
-            .pillars-grid { grid-template-columns: 1fr; }
+            .pillars-grid, .hub-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 600px) {
@@ -577,216 +767,17 @@
             .hero h1 { font-size: 2.8rem; }
             nav ul { display: none; }
         }
-
-        #socials {
-            padding: 5rem 0 3rem;
-            margin-top: 4rem;
-            border-top: 1px solid var(--border-color);
-            scroll-margin-top: 100px;
-        }
-
-        .socials-container {
-            text-align: center;
-        }
-
-        .socials-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .socials-subtitle {
-            color: var(--text-dim);
-            font-size: 1rem;
-            margin-bottom: 3rem;
-        }
-
-        .socials-grid {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .social-card {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 1.25rem 2.2rem;
-            text-decoration: none;
-            color: var(--text-white);
-            min-width: 280px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .social-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 0;
-        }
-
-        .social-card.instagram::before {
-            background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(253, 29, 29, 0.25), rgba(245, 130, 32, 0.25));
-        }
-
-        .social-card.twitter::before {
-            background: linear-gradient(135deg, rgba(29, 155, 240, 0.25), rgba(255, 255, 255, 0.1));
-        }
-
-        .social-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.25);
-        }
-
-        .social-card:hover::before {
-            opacity: 1;
-        }
-
-        .social-icon {
-            width: 28px;
-            height: 28px;
-            position: relative;
-            z-index: 1;
-            transition: transform 0.4s ease, color 0.4s ease;
-        }
-
-        .social-card:hover .social-icon {
-            transform: rotate(-8px) scale(1.15);
-        }
-
-        .social-card.instagram:hover .social-icon {
-            color: #e1306c;
-        }
-
-        .social-card.twitter:hover .social-icon {
-            color: #1d9bf0;
-        }
-
-        .social-info {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-            position: relative;
-            z-index: 1;
-        }
-
-        .social-platform {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .social-handle {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            transition: color 0.3s;
-        }
-
-        .social-card:hover .social-handle {
-            color: #ffffff;
-        }
-
-        /* Puzzle Section Styling */
-        #puzzle {
-            padding: 5rem 0;
-            text-align: center;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .puzzle-container {
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 2rem;
-            max-width: 650px;
-            margin: 0 auto;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-            position: relative;
-        }
-
-        #puzzleCanvas {
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            border: 2px solid rgba(255,255,255,0.05);
-            cursor: grab;
-            max-width: 100%;
-            height: auto;
-        }
-
-        #puzzleCanvas:active {
-            cursor: grabbing;
-        }
-
-        .puzzle-controls {
-            margin-top: 1.5rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .puzzle-btn {
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
-        }
-
-        .btn-shuffle {
-            background: transparent;
-            border: 1px solid var(--secondary-accent);
-            color: var(--secondary-accent);
-        }
-
-        .btn-shuffle:hover {
-            background: rgba(6, 182, 212, 0.1);
-            transform: translateY(-2px);
-        }
-
-        #congratsMessage {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(13, 18, 30, 0.95);
-            border: 2px solid var(--primary-accent);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 0 30px var(--border-glow);
-            z-index: 10;
-        }
-
-        #congratsMessage h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--primary-accent);
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-        }
     </style>
 </head>
 <body>
 
+    <canvas id="bgCanvas"></canvas>
     <div class="grid-bg"></div>
 
     <div class="container">
-        <!-- Quick Links Navbar -->
+        <!-- Header -->
         <header id="home">
-            <a href="#home" class="brand-logo-link" title="Jump to top">
+            <a href="#home" class="brand-logo-link">
                 <img src="WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg" alt="Odyssey Logo" class="brand-logo-img">
                 <span class="brand-title">ODYSSEY</span>
             </a>
@@ -794,20 +785,24 @@
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#quick-links">Quick Links</a></li>
+                    <li><a href="#hub">Innovation Hub</a></li>
                     <li><a href="#featured-video">Featured Video</a></li>
                     <li><a href="#team">Team Members</a></li>
                     <li><a href="#socials">Social Media</a></li>
                     <li><a href="#puzzle">Logo Puzzle</a></li>
                 </ul>
             </nav>
-            <button id="cycleBtn" class="nav-btn" onclick="cycleSections()">Explore Site ↓</button>
+            <button class="nav-btn" onclick="cycleSections()">Explore Site ↓</button>
         </header>
 
-        <!-- Hero & Tagline Section -->
+        <!-- Hero Section -->
         <section class="hero" id="about">
-            <div class="hero-logo-box">
-                <img src="WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg" alt="Odyssey Logo" class="hero-logo-img">
+            <div class="hero-logo-wrapper">
+                <div class="hero-logo-box" id="tiltLogo">
+                    <img src="WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg" alt="Odyssey Logo" class="hero-logo-img">
+                </div>
             </div>
 
             <div class="hero-badge">⚡ Innovation & Excellence</div>
@@ -818,27 +813,133 @@
                 <div class="pillar-card">
                     <span class="pillar-icon">💡</span>
                     <h3>Inspire</h3>
-                    <p>Spark ideas, creativity, and motivation in ourselves and others to push past conventional boundaries.</p>
+                    <p>Spark ideas, creativity, and unconventional thinking in ourselves and others to push past conventional boundaries.</p>
                 </div>
                 <div class="pillar-card">
                     <span class="pillar-icon">⚡</span>
                     <h3>Empower</h3>
-                    <p>Equip every team member with the confidence, skills, and continuous support needed to excel.</p>
+                    <p>Equip every peer and team member with actionable growth roadmaps, technical tools, and continuous support.</p>
                 </div>
                 <div class="pillar-card">
                     <span class="pillar-icon">🎯</span>
                     <h3>Achieve</h3>
-                    <p>Turn our collective vision into reality through relentless dedication, seamless collaboration, and technical excellence.</p>
+                    <p>Turn our collective vision into reality through relentless execution, specialized skills, and technical excellence.</p>
                 </div>
-            </div>
-
-            <div class="quick-nav-container">
-                <a href="#featured-video" class="quick-nav-btn quick-video-btn">Watch Video ↓</a>
-                <a href="#team" class="quick-nav-btn quick-team-btn">Jump to Team Members ↓</a>
             </div>
         </section>
 
-        <!-- Video Showcase Section -->
+        <!-- Gallery Section -->
+        <section id="gallery">
+            <div class="section-header">
+                <h2 class="section-title">Team Moments Gallery</h2>
+                <span style="color: var(--text-dim); font-size: 0.9rem;">Continuous horizontal showcase</span>
+            </div>
+            
+            <div class="marquee-container">
+                <div class="marquee-track">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.17 PM (1).jpeg" alt="Group on court">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.17 PM.jpeg" alt="Group in front of FISAT">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.18 PM (1).jpeg" alt="Team meeting">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.18 PM (2).jpeg" alt="Scoreboard presenter">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.18 PM.jpeg" alt="Group selfie">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.19 PM (1).jpeg" alt="Presentation stage">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.19 PM.jpeg" alt="Team 9 presentation">
+
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.17 PM (1).jpeg" alt="Group on court">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.17 PM.jpeg" alt="Group in front of FISAT">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.18 PM (1).jpeg" alt="Team meeting">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.18 PM (2).jpeg" alt="Scoreboard presenter">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.18 PM.jpeg" alt="Group selfie">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.19 PM (1).jpeg" alt="Presentation stage">
+                    <img src="WhatsApp Image 2026-07-23 at 11.43.19 PM.jpeg" alt="Team 9 presentation">
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Links Hub Section -->
+        <section id="quick-links">
+            <div class="section-header">
+                <h2 class="section-title">Quick Links</h2>
+                <span style="color: var(--text-dim); font-size: 0.9rem;">Fast Navigation</span>
+            </div>
+            <div class="quick-links-grid">
+                <a href="https://youtube.com/@odysseyteam9?si=gtfWE-CTri2uV7Cu" target="_blank" rel="noopener noreferrer" class="quick-link-card" style="border-color: rgba(239, 68, 68, 0.4);">
+                    <div class="quick-link-icon" style="color: #ef4444;">▶</div>
+                    <div>
+                        <div style="font-weight:700">YouTube Channel</div>
+                        <div style="font-size:0.8rem; color:var(--text-dim)">@odysseyteam9</div>
+                    </div>
+                </a>
+                <a href="#gallery" class="quick-link-card">
+                    <div class="quick-link-icon">🖼️</div>
+                    <div>
+                        <div style="font-weight:700">Photo Gallery</div>
+                        <div style="font-size:0.8rem; color:var(--text-dim)">Event moments</div>
+                    </div>
+                </a>
+                <a href="#hub" class="quick-link-card">
+                    <div class="quick-link-icon">🚀</div>
+                    <div>
+                        <div style="font-weight:700">Innovation Hub</div>
+                        <div style="font-size:0.8rem; color:var(--text-dim)">Roadmaps & skills</div>
+                    </div>
+                </a>
+                <a href="#featured-video" class="quick-link-card">
+                    <div class="quick-link-icon">🎬</div>
+                    <div>
+                        <div style="font-weight:700">Featured Video</div>
+                        <div style="font-size:0.8rem; color:var(--text-dim)">Presentation clip</div>
+                    </div>
+                </a>
+                <a href="#team" class="quick-link-card">
+                    <div class="quick-link-icon">👥</div>
+                    <div>
+                        <div style="font-weight:700">Team Members</div>
+                        <div style="font-size:0.8rem; color:var(--text-dim)">Members & skills</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Innovation Hub Section -->
+        <section id="hub">
+            <div class="section-header">
+                <h2 class="section-title">Resource & Skill Growth Hub</h2>
+                <span style="color: var(--text-dim); font-size: 0.9rem;">Empowerment tools for student innovators</span>
+            </div>
+
+            <div class="hub-grid">
+                <div class="hub-card">
+                    <h3>🛠️ Tech Stack Roadmap Generator</h3>
+                    <div class="path-selector">
+                        <button class="path-chip active" onclick="setRoadmap(event, 'embedded')">Embedded Hardware</button>
+                        <button class="path-chip" onclick="setRoadmap(event, 'web')">Web App Development</button>
+                        <button class="path-chip" onclick="setRoadmap(event, '3d')">Prototyping & CAD</button>
+                    </div>
+                    <div class="flow-display" id="flowDisplay"></div>
+                </div>
+
+                <div class="hub-card">
+                    <h3>🎯 Skill-Match Members Filter</h3>
+                    <div class="skill-filter">
+                        <button class="filter-btn active" onclick="filterSkill(event, 'all')">All Skills</button>
+                        <button class="filter-btn" onclick="filterSkill(event, 'editing')">Editing / Media</button>
+                        <button class="filter-btn" onclick="filterSkill(event, 'creative')">Music / Creative</button>
+                        <button class="filter-btn" onclick="filterSkill(event, 'hardware')">Hardware & Embedded</button>
+                        <button class="filter-btn" onclick="filterSkill(event, 'captain')">Leadership</button>
+                    </div>
+                    
+                    <div style="font-size: 0.8rem; color: var(--secondary-accent); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;" id="filterStatus">
+                        Matched Members
+                    </div>
+
+                    <!-- DIRECT MATCHED MEMBERS DISPLAY INSIDE THE CARD -->
+                    <div class="matched-members-grid" id="matchedMembersGrid"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Showcase -->
         <section id="featured-video" class="video-section">
             <div class="section-header">
                 <h2 class="section-title">Featured Video</h2>
@@ -852,90 +953,93 @@
             </div>
         </section>
 
-        <!-- Team Roster Section -->
+        <!-- Team Section -->
         <section id="team">
             <div class="section-header">
-                <h2 class="section-title">Team</h2>
-                <span style="color: var(--text-dim); font-size: 0.9rem;">Click any card to edit details</span>
+                <h2 class="section-title">Team Members</h2>
+                <span style="color: var(--text-dim); font-size: 0.9rem;">Click any card to view or edit details</span>
             </div>
 
-            <div class="team-grid" id="teamGrid">
-                <!-- Dynamic 8 Team Members -->
-            </div>
+            <div class="team-grid" id="teamGrid"></div>
         </section>
     </div>
 
-    <!-- Social Media Quick Link Section -->
+    <!-- Social Media Section -->
     <section id="socials">
         <div class="socials-container">
-            <h2 class="socials-title">Connect With Us</h2>
-            <p class="socials-subtitle">Follow Team Odyssey for live updates, behind-the-scenes content, and announcements.</p>
+            <h2 class="section-title">Connect With Us</h2>
+            <p style="color: var(--text-dim); margin-top: 0.5rem;">Follow Team Odyssey for live updates, behind-the-scenes content, and announcements.</p>
             
             <div class="socials-grid">
-                <a href="https://www.instagram.com/odysseyyy.in?igsh=em80bXIybTFhMTR0" target="_blank" rel="noopener noreferrer" class="social-card instagram">
-                    <div class="social-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                        </svg>
-                    </div>
-                    <div class="social-info">
-                        <span class="social-platform">Instagram</span>
-                        <span class="social-handle">@odysseyyy.in</span>
+                <a href="https://youtube.com/@odysseyteam9?si=gtfWE-CTri2uV7Cu" target="_blank" rel="noopener noreferrer" class="social-card">
+                    <svg class="social-icon" viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    <div style="text-align: left;">
+                        <div style="font-weight:700">YouTube</div>
+                        <div style="font-size:0.85rem; color:var(--text-dim)">@odysseyteam9</div>
                     </div>
                 </a>
 
-                <a href="https://x.com/Odesseyyyyin" target="_blank" rel="noopener noreferrer" class="social-card twitter">
-                    <div class="social-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
-                            <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
-                        </svg>
+                <a href="https://www.instagram.com/odysseyyy.in?igsh=em80bXIybTFhMTR0" target="_blank" rel="noopener noreferrer" class="social-card">
+                    <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    </svg>
+                    <div style="text-align: left;">
+                        <div style="font-weight:700">Instagram</div>
+                        <div style="font-size:0.85rem; color:var(--text-dim)">@odysseyyy.in</div>
                     </div>
-                    <div class="social-info">
-                        <span class="social-platform">X (Twitter)</span>
-                        <span class="social-handle">@Odesseyyyyin</span>
+                </a>
+
+                <a href="https://x.com/Odesseyyyyin" target="_blank" rel="noopener noreferrer" class="social-card">
+                    <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+                        <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+                    </svg>
+                    <div style="text-align: left;">
+                        <div style="font-weight:700">X (Twitter)</div>
+                        <div style="font-size:0.85rem; color:var(--text-dim)">@Odesseyyyyin</div>
                     </div>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Puzzle Section -->
+    <!-- LOGO PUZZLE SECTION -->
     <section id="puzzle">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Assemble Our Vision</h2>
-                <span style="color: var(--text-dim); font-size: 0.9rem;">Drag the pieces to complete the logo</span>
+                <span style="color: var(--text-dim); font-size: 0.9rem;">Drag and snap the pieces to complete the logo</span>
             </div>
             <div class="puzzle-container">
-                <canvas id="puzzleCanvas" width="500" height="500"></canvas>
+                <canvas id="puzzleCanvas" width="450" height="450"></canvas>
                 <div id="congratsMessage">
-                    <h3>Empowered!</h3>
+                    <h3 style="color: var(--primary-accent); margin-bottom: 0.5rem;">Empowered!</h3>
                     <p>You've assembled the shared vision of Team Odyssey.</p>
-                    <button class="puzzle-btn nav-btn" style="margin-top:1rem;" onclick="initPuzzle()">Play Again</button>
+                    <button class="nav-btn" style="margin-top:1rem;" onclick="initPuzzle()">Play Again</button>
                 </div>
-                <div class="puzzle-controls">
-                    <button class="puzzle-btn btn-shuffle" onclick="shufflePieces()">Shuffle</button>
+                <div style="margin-top: 1.5rem;">
+                    <button class="path-chip" onclick="shufflePieces()">Shuffle Pieces</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Edit/Details Modal Window -->
+    <!-- Profile Edit Modal -->
     <div class="modal-overlay" id="profileModal">
         <div class="modal">
             <button class="close-btn" onclick="closeModal()">&times;</button>
             <form id="profileForm" onsubmit="saveProfile(event)">
-                <div class="modal-header">
-                    <img id="modalAvatar" src="" alt="Profile Photo">
-                    <div style="flex-grow: 1;">
+                <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <img id="modalAvatar" src="" alt="Profile" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--primary-accent);">
+                    <div style="flex-grow:1;">
                         <div class="form-group">
                             <label>Member Name</label>
                             <input type="text" id="editName" required>
                         </div>
-                        <div class="form-group" style="margin-bottom: 0;">
+                        <div class="form-group" style="margin-bottom:0;">
                             <label>Role / Position</label>
                             <input type="text" id="editRole" required>
                         </div>
@@ -943,167 +1047,330 @@
                 </div>
                 <div class="form-group">
                     <label>Profile Image Link</label>
-                    <input type="url" id="editImage" placeholder="https://..." onchange="updateAvatarPreview(this.value)">
+                    <input type="url" id="editImage" onchange="document.getElementById('modalAvatar').src=this.value">
                 </div>
                 <div class="form-group">
                     <label>Bio / Personal Notes</label>
-                    <textarea id="editBio" rows="4" placeholder="Enter biography, skills, or specialized roles..."></textarea>
+                    <textarea id="editBio" rows="3"></textarea>
                 </div>
-                <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
-                    <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
-                    <button type="submit" class="btn-submit">Save Profile</button>
+                <div style="display:flex; justify-content:flex-end; gap:1rem; margin-top:1.5rem;">
+                    <button type="button" class="filter-btn" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="nav-btn">Save Profile</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
+        // 1. Dynamic Background Particles
+        const bgCanvas = document.getElementById('bgCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let particles = [];
+
+        function resizeBg() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeBg);
+        resizeBg();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * bgCanvas.width;
+                this.y = Math.random() * bgCanvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.6;
+                this.speedY = (Math.random() - 0.5) * 0.6;
+                this.color = Math.random() > 0.5 ? 'rgba(168, 85, 247, ' : 'rgba(6, 182, 212, ';
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0) this.x = bgCanvas.width;
+                if (this.x > bgCanvas.width) this.x = 0;
+                if (this.y < 0) this.y = bgCanvas.height;
+                if (this.y > bgCanvas.height) this.y = 0;
+            }
+            draw() {
+                bgCtx.fillStyle = this.color + this.alpha + ')';
+                bgCtx.beginPath();
+                bgCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                bgCtx.fill();
+            }
+        }
+
+        for (let i = 0; i < 70; i++) particles.push(new Particle());
+
+        function animateBg() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateBg);
+        }
+        animateBg();
+
+        // 2. Controlled Logo Hover
+        const tiltLogo = document.getElementById('tiltLogo');
+        if (tiltLogo) {
+            tiltLogo.parentElement.addEventListener('mousemove', (e) => {
+                const rect = tiltLogo.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                tiltLogo.style.transform = `rotateY(${x / 12}deg) rotateX(${-y / 12}deg) translateY(-5px)`;
+            });
+
+            tiltLogo.parentElement.addEventListener('mouseleave', () => {
+                tiltLogo.style.transform = 'rotateY(0deg) rotateX(0deg) translateY(0px)';
+            });
+        }
+
+        // 3. Roadmap Data
+        const roadmaps = {
+            embedded: [
+                { step: "1", text: "Master C / C++ Basics & Microcontroller I/O" },
+                { step: "2", text: "Interface Sensors, Timers & Serial Communication (UART/SPI)" },
+                { step: "3", text: "Design Custom PCB Schematic & Hardware Prototype" }
+            ],
+            web: [
+                { step: "1", text: "Learn Core HTML5, Modern CSS & Dynamic JavaScript" },
+                { step: "2", text: "Build Responsive Layouts with Glassmorphism & UI Design" },
+                { step: "3", text: "Integrate Interactive Canvas Elements & APIs" }
+            ],
+            '3d': [
+                { step: "1", text: "Draft Initial Sketches & CAD 3D Component Models" },
+                { step: "2", text: "Calibrate 3D Print Tolerances & Infill Density" },
+                { step: "3", text: "Fabricate Modular Enclosures in Idea Lab" }
+            ]
+        };
+
+        function setRoadmap(evt, key) {
+            if(evt) {
+                document.querySelectorAll('.path-chip').forEach(c => c.classList.remove('active'));
+                evt.target.classList.add('active');
+            }
+
+            const container = document.getElementById('flowDisplay');
+            container.innerHTML = roadmaps[key].map(s => `
+                <div class="flow-step">
+                    <div class="step-num">${s.step}</div>
+                    <div>${s.text}</div>
+                </div>
+            `).join('');
+        }
+        setRoadmap(null, 'embedded');
+
+        // 4. Team Members Data & Dynamic Skill Matcher
+        const ALL_TAGS = ['captain', 'editing', 'creative', 'hardware', 'software'];
+
         const defaultMembers = [
-            { id: 1, name: "GAYATHRI P A", role: "TEAM CAPTAIN", image: "https://www.image2url.com/r2/default/images/1784639892700-f23a3f52-cfb0-46ff-8045-8482ce0551c1.jpeg", bio: "" },
-            { id: 2, name: "ARDRA M MENON", role: "TEAM VICE CAPTAIN", image: "https://cdn.phototourl.com/free/2026-07-21-2b05ce64-8f37-4ea6-85e3-9c64cf36b384.jpg", bio: "" },
-            { id: 3, name: "ABHINAV S", role: "TECHNICAL HEAD", image: "https://www.image2url.com/r2/default/images/1784640195984-b4910fa2-c1cf-4abf-bc3e-ca7d371b592d.jpeg", bio: "" },
-            { id: 4, name: "AAFRIN HIDAYATH P K", role: "Team Member", image: "https://cdn.phototourl.com/free/2026-07-21-ad56dfbe-f25a-478c-a869-aab628b3171f.jpg", bio: "• Specialization: Editing" },
-            { id: 5, name: "ATHIRA SURESH", role: "Team Member", image: "https://cdn.phototourl.com/free/2026-07-21-7b5bdee1-cdff-45fa-952b-ac460012fb7e.jpg", bio: "" },
-            { id: 6, name: "GOUTHAM R", role: "Team Member", image: "https://cdn.phototourl.com/free/2026-07-21-440583c3-afe1-4df0-9af7-423fee8ada04.jpg", bio: "• Hobby/Skill: Violin" },
-            { id: 7, name: "ADWAITH K C", role: "Team Member", image: "https://cdn.phototourl.com/member/2026-07-21-e48e44f0-993e-48c0-a689-0678fecbf2d4.jpg", bio: "" },
-            { id: 8, name: "DEEPAK S", role: "Team Member", image: "https://cdn.phototourl.com/free/2026-07-21-70fe3754-8ef5-4489-b35b-f3842cbd94ef.jpg", bio: "" }
+            { 
+                id: 1, 
+                name: "GAYATHRI P A", 
+                role: "CAPTAIN", 
+                image: "https://www.image2url.com/r2/default/images/1784639892700-f23a3f52-cfb0-46ff-8045-8482ce0551c1.jpeg", 
+                bio: "Leadership & System Strategy",
+                tags: [...ALL_TAGS]
+            },
+            { 
+                id: 2, 
+                name: "ARDRA M MENON", 
+                role: "VICE CAPTAIN", 
+                image: "https://cdn.phototourl.com/free/2026-07-21-2b05ce64-8f37-4ea6-85e3-9c64cf36b384.jpg", 
+                bio: "Project Operations & Operations Lead",
+                tags: [...ALL_TAGS]
+            },
+            { 
+                id: 3, 
+                name: "ABHINAV S", 
+                role: "TECH HEAD", 
+                image: "https://www.image2url.com/r2/default/images/1784640195984-b4910fa2-c1cf-4abf-bc3e-ca7d371b592d.jpeg", 
+                bio: "Hardware, Software Design & Media Production",
+                tags: ['editing', 'creative', 'hardware', 'software']
+            },
+            { 
+                id: 4, 
+                name: "AAFRIN HIDAYATH P K", 
+                role: "MEMBER", 
+                image: "https://cdn.phototourl.com/free/2026-07-21-ad56dfbe-f25a-478c-a869-aab628b3171f.jpg", 
+                bio: "• Specialization: Editing & Media Post-Production",
+                tags: ['editing', 'creative']
+            },
+            { 
+                id: 5, 
+                name: "ATHIRA SURESH", 
+                role: "MEMBER", 
+                image: "https://cdn.phototourl.com/free/2026-07-21-7b5bdee1-cdff-45fa-952b-ac460012fb7e.jpg", 
+                bio: "Technical Research & Circuit Simulation",
+                tags: ['hardware', 'software']
+            },
+            { 
+                id: 6, 
+                name: "GOUTHAM R", 
+                role: "MEMBER", 
+                image: "https://cdn.phototourl.com/free/2026-07-21-440583c3-afe1-4df0-9af7-423fee8ada04.jpg", 
+                bio: "• Hobby/Skill: Violin & Creative Design",
+                tags: ['creative', 'hardware']
+            },
+            { 
+                id: 7, 
+                name: "ADWAITH K C", 
+                role: "MEMBER", 
+                image: "https://cdn.phototourl.com/member/2026-07-21-e48e44f0-993e-48c0-a689-0678fecbf2d4.jpg", 
+                bio: "Hardware Execution & Assembly",
+                tags: ['hardware', 'editing']
+            },
+            { 
+                id: 8, 
+                name: "DEEPAK S", 
+                role: "MEMBER", 
+                image: "https://cdn.phototourl.com/free/2026-07-21-70fe3754-8ef5-4489-b35b-f3842cbd94ef.jpg", 
+                bio: "Circuit Testing & Prototyping",
+                tags: ['hardware', 'creative']
+            }
         ];
 
-        let members = JSON.parse(localStorage.getItem('odyssey_team_v9')) || defaultMembers;
+        let members = JSON.parse(localStorage.getItem('odyssey_team_v13')) || defaultMembers;
         let activeMemberId = null;
 
         function renderTeam() {
             const grid = document.getElementById('teamGrid');
             grid.innerHTML = '';
-            members.forEach(member => {
+            
+            members.forEach(m => {
                 const card = document.createElement('div');
                 card.className = 'member-card';
-                card.onclick = () => openModal(member.id);
+
+                const memberTags = m.tags || [];
+                card.onclick = () => openModal(m.id);
+                
+                const displayChips = memberTags.map(t => {
+                    let label = t.toUpperCase();
+                    if(t === 'creative') label = 'MUSIC / CREATIVE';
+                    if(t === 'editing') label = 'EDITING / MEDIA';
+                    if(t === 'captain') label = 'LEADERSHIP';
+                    if(t === 'hardware') label = 'HARDWARE';
+                    if(t === 'software') label = 'SOFTWARE';
+                    return `<span class="tag-chip">${label}</span>`;
+                }).join('');
+
                 card.innerHTML = `
                     <div class="avatar-box">
-                        <img src="${member.image}" alt="${member.name}" onerror="this.src='https://via.placeholder.com/150'">
+                        <img src="${m.image}" alt="${m.name}" onerror="this.src='https://via.placeholder.com/150'">
                     </div>
-                    <h3>${member.name}</h3>
-                    <span class="role-badge">${member.role}</span>
+                    <h3>${m.name}</h3>
+                    <span class="role-badge">${m.role}</span>
+                    <div class="member-tags">${displayChips}</div>
                 `;
                 grid.appendChild(card);
             });
-            localStorage.setItem('odyssey_team_v9', JSON.stringify(members));
+            localStorage.setItem('odyssey_team_v13', JSON.stringify(members));
+        }
+
+        function filterSkill(evt, category) {
+            if(evt) {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                evt.target.classList.add('active');
+            }
+            
+            const statusEl = document.getElementById('filterStatus');
+            const inlineGrid = document.getElementById('matchedMembersGrid');
+            
+            let matched = members;
+            if (category === 'all') {
+                statusEl.innerHTML = "ALL TEAM MEMBERS (" + members.length + ")";
+            } else {
+                matched = members.filter(m => (m.tags || []).includes(category));
+                statusEl.innerHTML = `MATCHED MEMBERS (${category.toUpperCase()}): ${matched.length} FOUND`;
+            }
+
+            inlineGrid.innerHTML = matched.map(m => `
+                <div class="matched-member-chip" onclick="openModal(${m.id})">
+                    <img src="${m.image}" alt="${m.name}" onerror="this.src='https://via.placeholder.com/150'">
+                    <div class="matched-member-name">${m.name}</div>
+                    <div class="matched-member-role">${m.role}</div>
+                </div>
+            `).join('');
         }
 
         function openModal(id) {
             activeMemberId = id;
-            const member = members.find(m => m.id === id);
-            if (!member) return;
-            document.getElementById('editName').value = member.name;
-            document.getElementById('editRole').value = member.role;
-            document.getElementById('editImage').value = member.image;
-            document.getElementById('modalAvatar').src = member.image;
-            document.getElementById('editBio').value = member.bio || '';
+            const m = members.find(m => m.id === id);
+            if (!m) return;
+            document.getElementById('editName').value = m.name;
+            document.getElementById('editRole').value = m.role;
+            document.getElementById('editImage').value = m.image;
+            document.getElementById('modalAvatar').src = m.image;
+            document.getElementById('editBio').value = m.bio || '';
             document.getElementById('profileModal').classList.add('active');
         }
 
         function closeModal() {
             document.getElementById('profileModal').classList.remove('active');
-            activeMemberId = null;
         }
 
-        function updateAvatarPreview(url) {
-            document.getElementById('modalAvatar').src = url;
-        }
-
-        function saveProfile(event) {
-            event.preventDefault();
-            const memberIndex = members.findIndex(m => m.id === activeMemberId);
-            if (memberIndex === -1) return;
-            members[memberIndex] = {
-                id: activeMemberId,
+        function saveProfile(e) {
+            e.preventDefault();
+            const idx = members.findIndex(m => m.id === activeMemberId);
+            if (idx === -1) return;
+            members[idx] = {
+                ...members[idx],
                 name: document.getElementById('editName').value,
                 role: document.getElementById('editRole').value,
                 image: document.getElementById('editImage').value,
                 bio: document.getElementById('editBio').value
             };
             renderTeam();
+            filterSkill(null, 'all');
             closeModal();
         }
 
+        // Initialize display
         renderTeam();
+        filterSkill(null, 'all');
 
-        const sections = ['about', 'featured-video', 'team', 'socials', 'puzzle']; 
+        // 5. Section Navigation Cycle
+        const sections = ['about', 'gallery', 'quick-links', 'hub', 'featured-video', 'team', 'socials', 'puzzle']; 
         let currentSectionIndex = 0;
 
         function cycleSections() {
             currentSectionIndex = (currentSectionIndex + 1) % sections.length;
-            const targetId = sections[currentSectionIndex];
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-            }
-            const btn = document.getElementById('cycleBtn');
-            if (currentSectionIndex === 0) { btn.innerHTML = 'Watch Video ↓'; } 
-            else if (currentSectionIndex === 1) { btn.innerHTML = 'View team ↓'; } 
-            else if (currentSectionIndex === 2) { btn.innerHTML = 'Connect With Us ↓'; } 
-            else if (currentSectionIndex === 3) { btn.innerHTML = 'Play Puzzle ↓'; } 
-            else { btn.innerHTML = 'Back to Top ↑'; }
+            const sec = document.getElementById(sections[currentSectionIndex]);
+            if (sec) sec.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // --- IMPROVED JIGSAW PUZZLE JS ---
+        // 6. Puzzle Game Canvas Logic
         const canvas = document.getElementById('puzzleCanvas');
         const ctx = canvas.getContext('2d');
         const congratsInfo = document.getElementById('congratsMessage');
         const img = new Image();
         img.src = 'WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg'; 
 
-        const cols = 3;
-        const rows = 3;
-        const pieceCount = cols * rows;
-        const pieces = [];
-        let pieceWidth, pieceHeight;
-        let selectedPiece = null;
-        let isDragging = false;
-        let offset = { x: 0, y: 0 };
-        
-        // --- IMPROVEMENT 1: MASSIVELY INCREASE SNAP TOLERANCE ---
-        // Was 20, now 60. You only need to get "close enough".
-        const snapTolerance = 60; 
+        const cols = 3, rows = 3, pieceCount = 9;
+        let pieces = [], pieceWidth, pieceHeight, selectedPiece = null, isDragging = false, offset = { x: 0, y: 0 };
 
         img.onload = function() {
-            pieceWidth = img.width / cols;
-            pieceHeight = img.height / rows;
-            canvas.width = img.width; 
-            canvas.height = img.height;
+            pieceWidth = canvas.width / cols;
+            pieceHeight = canvas.height / rows;
             initPuzzle();
         };
 
         function initPuzzle() {
-            pieces.length = 0;
+            pieces = [];
             congratsInfo.style.display = 'none';
             for (let i = 0; i < pieceCount; i++) {
-                const x = (i % cols) * pieceWidth;
-                const y = Math.floor(i / cols) * pieceHeight;
-                pieces.push({
-                    correctX: x,
-                    correctY: y,
-                    x: x, y: y,   
-                    snapped: true 
-                });
+                const cx = (i % cols) * pieceWidth;
+                const cy = Math.floor(i / cols) * pieceHeight;
+                pieces.push({ id: i, correctX: cx, correctY: cy, x: cx, y: cy, snapped: true });
             }
             drawPuzzle();
-            setTimeout(shufflePieces, 1000); 
+            setTimeout(shufflePieces, 800);
         }
 
         function shufflePieces() {
             congratsInfo.style.display = 'none';
-            
-            // --- IMPROVEMENT 2: SHUFFLE IN THE CENTER AREA ---
-            // Keeps pieces away from edges so they are easier to grab.
-            const padding = 50; 
-            const shuffleAreaWidth = canvas.width - (pieceWidth + padding * 2);
-            const shuffleAreaHeight = canvas.height - (pieceHeight + padding * 2);
-
             pieces.forEach(p => {
-                p.x = padding + (Math.random() * shuffleAreaWidth);
-                p.y = padding + (Math.random() * shuffleAreaHeight);
+                p.x = 20 + Math.random() * (canvas.width - pieceWidth - 40);
+                p.y = 20 + Math.random() * (canvas.height - pieceHeight - 40);
                 p.snapped = false;
             });
             drawPuzzle();
@@ -1111,170 +1378,72 @@
 
         function drawPuzzle() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw hints (ghost image)
-            ctx.globalAlpha = 0.08; // Slightly fainter ghost
-            ctx.drawImage(img, 0, 0);
+            ctx.globalAlpha = 0.15;
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
             ctx.globalAlpha = 1.0;
 
-            // Draw grid lines
-            ctx.strokeStyle = 'rgba(255,255,255,0.03)'; // Fainter grid
-            ctx.lineWidth = 1;
-            for(let c = 1; c < cols; c++) { ctx.beginPath(); ctx.moveTo(c * pieceWidth, 0); ctx.lineTo(c * pieceWidth, canvas.height); ctx.stroke(); }
-            for(let r = 1; r < rows; r++) { ctx.beginPath(); ctx.moveTo(0, r * pieceHeight); ctx.lineTo(canvas.width, r * pieceHeight); ctx.stroke(); }
-
-            // --- IMPROVEMENT 3: HIGHLIGHT CORRECT DROP ZONE ---
-            // If dragging, draw a ghost outline where the piece *should* go.
-            if (isDragging && selectedPiece) {
-                ctx.save();
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = 'rgba(168, 85, 247, 0.5)'; // Translucent Purple accent
-                ctx.setLineDash([10, 5]); // Dashed line
-                ctx.strokeRect(selectedPiece.correctX, selectedPiece.correctY, pieceWidth, pieceHeight);
-                ctx.restore();
-            }
-
-            // Draw snapped pieces first
-            pieces.forEach(p => {
-                if (p.snapped) drawPiece(p);
-            });
-
-            // Draw non-selected floating pieces
-            pieces.forEach(p => {
-                if (!p.snapped && p !== selectedPiece) drawPiece(p);
-            });
-
-            // Draw selected piece last (on top)
-            if (selectedPiece) {
-                // Glow effect remains while dragging
-                ctx.shadowColor = 'rgba(168, 85, 247, 0.9)'; 
-                ctx.shadowBlur = 25;
-                drawPiece(selectedPiece);
-                ctx.shadowBlur = 0; 
-            }
+            pieces.filter(p => p.snapped).forEach(p => drawPiece(p));
+            pieces.filter(p => !p.snapped && p !== selectedPiece).forEach(p => drawPiece(p));
+            if (selectedPiece) drawPiece(selectedPiece, true);
         }
 
-        function drawPiece(p) {
+        function drawPiece(p, isSelected = false) {
             ctx.save();
-            if (p.snapped) {
-                // Perfectly aligned clipped image part
-                ctx.drawImage(img, p.correctX, p.correctY, pieceWidth, pieceHeight, p.correctX, p.correctY, pieceWidth, pieceHeight);
-            } else {
-                // Floating pieces get border and slight shadow for depth
-                ctx.lineWidth = selectedPiece === p ? 3 : 1;
-                ctx.strokeStyle = selectedPiece === p ? 'var(--primary-accent)' : 'rgba(255,255,255,0.3)';
-                
-                // --- IMPROVEMENT 4: ADD SHADOW TO FLOATING PIECES ---
-                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-                ctx.shadowBlur = 10;
-                ctx.shadowOffsetX = 3;
-                ctx.shadowOffsetY = 5;
-
-                // Draw clipped image part
-                ctx.beginPath();
-                ctx.rect(p.x, p.y, pieceWidth, pieceHeight);
-                ctx.closePath();
-                ctx.clip();
-                ctx.drawImage(img, p.correctX, p.correctY, pieceWidth, pieceHeight, p.x, p.y, pieceWidth, pieceHeight);
-                ctx.restore(); 
-                
-                ctx.save(); // New save for border only (avoids clipping)
-                ctx.lineWidth = selectedPiece === p ? 3 : 1;
-                ctx.strokeStyle = selectedPiece === p ? 'var(--primary-accent)' : 'rgba(255,255,255,0.3)';
-                ctx.strokeRect(p.x, p.y, pieceWidth, pieceHeight);
-                ctx.restore();
-            }
+            const sx = (p.id % cols) * (img.width / cols);
+            const sy = Math.floor(p.id / cols) * (img.height / rows);
+            ctx.drawImage(img, sx, sy, img.width / cols, img.height / rows, p.x, p.y, pieceWidth, pieceHeight);
+            ctx.strokeStyle = p.snapped ? 'rgba(6, 182, 212, 0.6)' : (isSelected ? '#a855f7' : 'rgba(255, 255, 255, 0.4)');
+            ctx.lineWidth = isSelected ? 3 : 1.5;
+            ctx.strokeRect(p.x, p.y, pieceWidth, pieceHeight);
             ctx.restore();
-        }
-
-        function checkCompletion() {
-            if (pieces.every(p => p.snapped)) {
-                setTimeout(() => {
-                    congratsInfo.style.display = 'block';
-                }, 300);
-            }
         }
 
         function getMousePos(e) {
             const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;    
-            const scaleY = canvas.height / rect.height;  
-            
-            let clientX, clientY;
-            if (e.touches && e.touches.length > 0) {
-                clientX = e.touches[0].clientX;
-                clientY = e.touches[0].clientY;
-            } else {
-                clientX = e.clientX;
-                clientY = e.clientY;
-            }
-
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
             return {
-                x: (clientX - rect.left) * scaleX,
-                y: (clientY - rect.top) * scaleY
+                x: (clientX - rect.left) * (canvas.width / rect.width),
+                y: (clientY - rect.top) * (canvas.height / rect.height)
             };
         }
 
-        function onMouseDown(e) {
-            if (congratsInfo.style.display === 'block') return; 
-            const mousePos = getMousePos(e);
-            
-            selectedPiece = null;
+        canvas.addEventListener('mousedown', (e) => {
+            const pos = getMousePos(e);
             for (let i = pieces.length - 1; i >= 0; i--) {
                 const p = pieces[i];
-                // Increased visual target area slightly for easier selection on mobile
-                const targetPadding = 10;
-                if (!p.snapped && mousePos.x > p.x - targetPadding && mousePos.x < p.x + pieceWidth + targetPadding && mousePos.y > p.y - targetPadding && mousePos.y < p.y + pieceHeight + targetPadding) {
+                if (!p.snapped && pos.x >= p.x && pos.x <= p.x + pieceWidth && pos.y >= p.y && pos.y <= p.y + pieceHeight) {
                     selectedPiece = p;
-                    // Reset offset to exact grab point
-                    offset.x = mousePos.x - p.x;
-                    offset.y = mousePos.y - p.y;
+                    offset = { x: pos.x - p.x, y: pos.y - p.y };
                     isDragging = true;
-                    
                     pieces.push(pieces.splice(i, 1)[0]);
                     break;
                 }
             }
             drawPuzzle();
-        }
+        });
 
-        function onMouseMove(e) {
+        window.addEventListener('mousemove', (e) => {
             if (!isDragging || !selectedPiece) return;
-            const mousePos = getMousePos(e);
-            
-            selectedPiece.x = mousePos.x - offset.x;
-            selectedPiece.y = mousePos.y - offset.y;
-            
+            const pos = getMousePos(e);
+            selectedPiece.x = pos.x - offset.x;
+            selectedPiece.y = pos.y - offset.y;
             drawPuzzle();
-        }
+        });
 
-        function onMouseUp() {
-            if (!isDragging || !selectedPiece) {
-                isDragging = false;
-                return;
+        window.addEventListener('mouseup', () => {
+            if (isDragging && selectedPiece) {
+                if (Math.abs(selectedPiece.x - selectedPiece.correctX) < 40 && Math.abs(selectedPiece.y - selectedPiece.correctY) < 40) {
+                    selectedPiece.x = selectedPiece.correctX;
+                    selectedPiece.y = selectedPiece.correctY;
+                    selectedPiece.snapped = true;
+                    if (pieces.every(p => p.snapped)) congratsInfo.style.display = 'block';
+                }
             }
-
-            if (Math.abs(selectedPiece.x - selectedPiece.correctX) < snapTolerance &&
-                Math.abs(selectedPiece.y - selectedPiece.correctY) < snapTolerance) {
-                selectedPiece.x = selectedPiece.correctX;
-                selectedPiece.y = selectedPiece.correctY;
-                selectedPiece.snapped = true;
-                selectedPiece = null; 
-                checkCompletion();
-            }
-
             isDragging = false;
-            drawPuzzle(); 
-        }
-
-        canvas.addEventListener('mousedown', onMouseDown);
-        window.addEventListener('mousemove', onMouseMove);
-        window.addEventListener('mouseup', onMouseUp);
-
-        canvas.addEventListener('touchstart', (e) => { onMouseDown(e); e.preventDefault(); }, {passive: false});
-        window.addEventListener('touchmove', (e) => { onMouseMove(e); }, {passive: false});
-        window.addEventListener('touchend', onMouseUp);
-
+            selectedPiece = null;
+            drawPuzzle();
+        });
     </script>
 </body>
 </html>
