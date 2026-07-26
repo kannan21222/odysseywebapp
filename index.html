@@ -7,6 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700;900&display=swap');
 
+        /* COLOR VARIABLES FOR DARK / LIGHT THEME */
         :root {
             --bg-main: #05070f;
             --bg-card: rgba(13, 18, 30, 0.7);
@@ -18,6 +19,25 @@
             --text-white: #f8fafc;
             --text-dim: #94a3b8;
             --modal-bg: #0d121f;
+            --header-bg: rgba(5, 7, 15, 0.85);
+            --grid-color: rgba(255, 255, 255, 0.02);
+            --cursor-glow: rgba(168, 85, 247, 0.6);
+        }
+
+        [data-theme="light"] {
+            --bg-main: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --border-color: rgba(0, 0, 0, 0.1);
+            --border-glow: rgba(168, 85, 247, 0.5);
+            --primary-accent: #9333ea;
+            --secondary-accent: #0891b2;
+            --pink-accent: #db2777;
+            --text-white: #0f172a;
+            --text-dim: #475569;
+            --modal-bg: #ffffff;
+            --header-bg: rgba(241, 245, 249, 0.9);
+            --grid-color: rgba(0, 0, 0, 0.03);
+            --cursor-glow: rgba(147, 51, 234, 0.4);
         }
 
         * {
@@ -38,6 +58,121 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* CUSTOM GLOWING CURSOR & RIPPLES */
+        #customCursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-accent);
+            box-shadow: 0 0 15px var(--cursor-glow), 0 0 30px var(--secondary-accent);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.08s ease-out, background 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        .click-ripple {
+            position: fixed;
+            border-radius: 50%;
+            border: 2px solid var(--secondary-accent);
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%) scale(0);
+            animation: rippleAnim 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+
+        @keyframes rippleAnim {
+            0% { width: 0px; height: 0px; opacity: 1; border-color: var(--secondary-accent); }
+            50% { border-color: var(--primary-accent); }
+            100% { width: 120px; height: 120px; opacity: 0; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* ANIMATED INTRO LANDING OVERLAY */
+        #introOverlay {
+            position: fixed;
+            inset: 0;
+            background: #030408;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        #introOverlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .intro-logo {
+            width: 140px;
+            height: 140px;
+            border-radius: 28px;
+            background: #ffffff;
+            padding: 10px;
+            box-shadow: 0 0 50px rgba(168, 85, 247, 0.8), 0 0 100px rgba(6, 182, 212, 0.5);
+            opacity: 0;
+            transform: scale(0.5);
+            animation: emergeLogo 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes emergeLogo {
+            0% { opacity: 0; transform: scale(0.4) translateY(30px); filter: blur(10px); }
+            50% { opacity: 1; transform: scale(1.05) translateY(0); filter: blur(0px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .intro-typing-container {
+            margin-top: 2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f8fafc;
+            min-height: 2em;
+            letter-spacing: 1px;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2rem;
+            background-color: var(--secondary-accent);
+            margin-left: 4px;
+            animation: blinkCursor 0.7s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .skip-intro-btn {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #94a3b8;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .skip-intro-btn:hover {
+            color: #fff;
+            border-color: var(--primary-accent);
         }
 
         /* BACKGROUND CANVAS */
@@ -54,8 +189,8 @@
         .grid-bg {
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+                              linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
             background-size: 50px 50px;
             pointer-events: none;
             z-index: 0;
@@ -77,10 +212,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 0;
-            background: rgba(5, 7, 15, 0.85);
+            padding: 1rem 0;
+            background: var(--header-bg);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
+            transition: background 0.4s;
         }
 
         .brand-logo-link {
@@ -92,9 +228,7 @@
             transition: opacity 0.2s;
         }
 
-        .brand-logo-link:hover {
-            opacity: 0.85;
-        }
+        .brand-logo-link:hover { opacity: 0.85; }
 
         .brand-logo-img {
             height: 42px;
@@ -106,18 +240,38 @@
 
         .brand-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 900;
             letter-spacing: 2px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--primary-accent) 50%, var(--secondary-accent) 100%);
+            background: linear-gradient(135deg, var(--text-white) 0%, var(--primary-accent) 50%, var(--secondary-accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-transform: uppercase;
         }
 
+        /* LIVE CLOCK & GREETING WIDGET */
+        .live-clock-widget {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-dim);
+        }
+
+        .live-clock-time {
+            color: var(--secondary-accent);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
         nav ul {
             display: flex;
-            gap: 1.8rem;
+            gap: 1.5rem;
             list-style: none;
         }
 
@@ -125,24 +279,48 @@
             color: var(--text-dim);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             transition: color 0.3s;
             position: relative;
             padding-bottom: 4px;
         }
 
-        nav a:hover {
+        nav a:hover { color: var(--text-white); }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
             color: var(--text-white);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-accent);
         }
 
         .nav-btn {
             background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
             color: #fff;
-            padding: 0.65rem 1.4rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 50px;
             font-weight: 700;
             text-decoration: none;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
             transition: transform 0.2s, box-shadow 0.2s;
             border: none;
@@ -158,7 +336,7 @@
         /* HERO SECTION */
         .hero {
             text-align: center;
-            padding: 4rem 1rem 3rem;
+            padding: 3.5rem 1rem 3rem;
             perspective: 1000px;
         }
 
@@ -223,7 +401,7 @@
             line-height: 1.1;
             margin-bottom: 0.8rem;
             letter-spacing: -1px;
-            background: linear-gradient(180deg, #ffffff 40%, var(--text-dim) 100%);
+            background: linear-gradient(180deg, var(--text-white) 40%, var(--text-dim) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -258,7 +436,7 @@
         .pillar-card:hover {
             border-color: rgba(168, 85, 247, 0.4);
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
         .pillar-icon {
@@ -298,9 +476,7 @@
         }
 
         /* CONTINUOUS MARQUEE GALLERY */
-        #gallery {
-            padding-bottom: 4rem;
-        }
+        #gallery { padding-bottom: 4rem; }
 
         .marquee-container {
             width: 100%;
@@ -311,7 +487,7 @@
             border-radius: 24px;
             padding: 1.5rem 0;
             box-sizing: border-box;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             position: relative;
         }
 
@@ -321,9 +497,7 @@
             animation: marquee-scroll 28s linear infinite;
         }
 
-        .marquee-container:hover .marquee-track {
-            animation-play-state: paused;
-        }
+        .marquee-container:hover .marquee-track { animation-play-state: paused; }
 
         .marquee-track img {
             height: 260px;
@@ -336,7 +510,7 @@
         }
 
         .marquee-track img:hover {
-            transform: scale(1.03);
+            transform: scale(1.04);
             border-color: var(--secondary-accent);
         }
 
@@ -346,9 +520,7 @@
         }
 
         /* QUICK LINKS SECTION */
-        #quick-links {
-            padding-bottom: 4rem;
-        }
+        #quick-links { padding-bottom: 4rem; }
 
         .quick-links-grid {
             display: grid;
@@ -372,7 +544,7 @@
         .quick-link-card:hover {
             transform: translateY(-4px);
             border-color: var(--primary-accent);
-            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.25);
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.2);
         }
 
         .quick-link-icon {
@@ -432,13 +604,13 @@
         .path-chip.active, .path-chip:hover {
             background: rgba(168, 85, 247, 0.2);
             border-color: var(--primary-accent);
-            color: #fff;
+            color: var(--text-white);
         }
 
         .filter-btn.active, .filter-btn:hover {
             background: rgba(6, 182, 212, 0.2);
             border-color: var(--secondary-accent);
-            color: #fff;
+            color: var(--text-white);
         }
 
         /* INLINE MATCHED MEMBERS DISPLAY */
@@ -491,10 +663,10 @@
         }
 
         .flow-display {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.15);
             border-radius: 16px;
             padding: 1.2rem;
-            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border: 1px dashed var(--border-color);
         }
 
         .flow-step {
@@ -521,9 +693,7 @@
         }
 
         /* FEATURED VIDEO */
-        .video-section {
-            padding-bottom: 4rem;
-        }
+        .video-section { padding-bottom: 4rem; }
 
         .video-card {
             background: var(--bg-card);
@@ -533,7 +703,7 @@
             padding: 1.5rem;
             max-width: 900px;
             margin: 0 auto;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
         .feature-video {
@@ -617,7 +787,7 @@
             color: var(--text-dim);
             padding: 0.2rem 0.5rem;
             border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
         }
 
         /* SOCIAL MEDIA */
@@ -652,8 +822,8 @@
 
         .social-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border-color: var(--primary-accent);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
 
         .social-icon { width: 28px; height: 28px; fill: currentColor; }
@@ -676,9 +846,9 @@
         }
 
         #puzzleCanvas {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--border-color);
             cursor: grab;
             max-width: 100%;
             touch-action: none;
@@ -689,14 +859,200 @@
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(13, 18, 30, 0.95);
+            background: var(--modal-bg);
             border: 2px solid var(--primary-accent);
             padding: 2.2rem;
             border-radius: 20px;
             z-index: 10;
         }
 
-        /* MODAL */
+        /* AI CHATBOT ASSISTANT */
+        .ai-chat-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
+            color: #ffffff;
+            padding: 0.85rem 1.4rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.5);
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-chat-fab:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.7);
+        }
+
+        .ai-chat-card {
+            position: fixed;
+            bottom: 5.5rem;
+            right: 2rem;
+            width: 360px;
+            max-width: 90vw;
+            height: 480px;
+            background: var(--modal-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            z-index: 901;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .ai-chat-card.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+        }
+
+        .ai-chat-header {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-chat-header h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ai-chat-messages {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .chat-msg {
+            max-width: 82%;
+            padding: 0.7rem 1rem;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .chat-msg.bot {
+            background: rgba(168, 85, 247, 0.12);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: var(--text-white);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-msg.user {
+            background: var(--secondary-accent);
+            color: #ffffff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-predefined-chips {
+            padding: 0.5rem 1rem;
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .chip-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-dim);
+            padding: 0.3rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chip-btn:hover {
+            border-color: var(--secondary-accent);
+            color: var(--text-white);
+            background: rgba(6, 182, 212, 0.2);
+        }
+
+        .ai-chat-input-area {
+            display: flex;
+            padding: 0.75rem;
+            gap: 0.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .ai-chat-input-area input {
+            flex-grow: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.6rem 0.8rem;
+            color: var(--text-white);
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .ai-chat-input-area button {
+            background: var(--primary-accent);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        /* EASTER EGG MODAL */
+        #easterEggModal .modal {
+            text-align: center;
+            border-color: var(--secondary-accent);
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 3.5rem 0 2rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            margin-top: 4rem;
+        }
+
+        .footer-quote {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-white), var(--primary-accent), var(--secondary-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .footer-copy {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        /* MODAL GENERAL */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -751,10 +1107,10 @@
         .form-group input, .form-group textarea {
             width: 100%;
             padding: 0.85rem 1rem;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            color: #fff;
+            color: var(--text-white);
         }
 
         @media (max-width: 1024px) {
@@ -766,11 +1122,25 @@
             .team-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.8rem; }
             nav ul { display: none; }
+            .live-clock-widget { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <!-- GLOWING CURSOR -->
+    <div id="customCursor"></div>
+
+    <!-- INTRO LANDING OVERLAY -->
+    <div id="introOverlay" onclick="skipIntro()">
+        <img src="WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg" alt="Odyssey Logo" class="intro-logo">
+        <div class="intro-typing-container">
+            <span id="typingText"></span><span class="typing-cursor"></span>
+        </div>
+        <button class="skip-intro-btn">Click anywhere to skip</button>
+    </div>
+
+    <!-- BACKGROUNDS -->
     <canvas id="bgCanvas"></canvas>
     <div class="grid-bg"></div>
 
@@ -781,6 +1151,13 @@
                 <img src="WhatsApp Image 2026-07-22 at 5.23.38 AM.jpeg" alt="Odyssey Logo" class="brand-logo-img">
                 <span class="brand-title">ODYSSEY</span>
             </a>
+
+            <!-- LIVE CLOCK & GREETING -->
+            <div class="live-clock-widget">
+                <span id="liveGreeting">Hello</span>
+                <span style="opacity: 0.4;">|</span>
+                <span class="live-clock-time" id="liveClock">00:00:00 AM</span>
+            </div>
             
             <nav>
                 <ul>
@@ -794,7 +1171,11 @@
                     <li><a href="#puzzle">Logo Puzzle</a></li>
                 </ul>
             </nav>
-            <button class="nav-btn" onclick="cycleSections()">Explore Site ↓</button>
+
+            <div class="header-controls">
+                <button class="theme-toggle-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+                <button class="nav-btn" onclick="cycleSections()">Explore Site ↓</button>
+            </div>
         </header>
 
         <!-- Hero Section -->
@@ -933,7 +1314,6 @@
                         Matched Members
                     </div>
 
-                    <!-- DIRECT MATCHED MEMBERS DISPLAY INSIDE THE CARD -->
                     <div class="matched-members-grid" id="matchedMembersGrid"></div>
                 </div>
             </div>
@@ -1027,6 +1407,57 @@
         </div>
     </section>
 
+    <!-- FOOTER WITH QUOTE -->
+    <footer>
+        <div class="container">
+            <div class="footer-quote">"Every Odyssey begins with curiosity."</div>
+            <div class="footer-copy">© 2026 Team Odyssey (Team 9). Designed & Engineered with Excellence.</div>
+        </div>
+    </footer>
+
+    <!-- AI CHATBOT ASSISTANT BUTTON & CARD -->
+    <button class="ai-chat-fab" onclick="toggleAiChat()">
+        💬 Ask Odyssey
+    </button>
+
+    <div class="ai-chat-card" id="aiChatCard">
+        <div class="ai-chat-header">
+            <h4>✨ Odyssey AI Assistant</h4>
+            <button class="close-btn" style="position:static; width:28px; height:28px;" onclick="toggleAiChat()">&times;</button>
+        </div>
+
+        <div class="ai-chat-messages" id="chatMessages">
+            <div class="chat-msg bot">
+                Hello! 👋 I'm your Odyssey Assistant. How can I help you today?
+            </div>
+        </div>
+
+        <div class="chat-predefined-chips">
+            <button class="chip-btn" onclick="sendPredefined('About us')">About us</button>
+            <button class="chip-btn" onclick="sendPredefined('Our projects')">Our projects</button>
+            <button class="chip-btn" onclick="sendPredefined('Team members')">Team members</button>
+            <button class="chip-btn" onclick="sendPredefined('Contact')">Contact</button>
+        </div>
+
+        <form class="ai-chat-input-area" onsubmit="handleUserChat(event)">
+            <input type="text" id="chatInput" placeholder="Ask a question..." autocomplete="off">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <!-- EASTER EGG UNLOCKED MODAL -->
+    <div class="modal-overlay" id="easterEggModal">
+        <div class="modal">
+            <button class="close-btn" onclick="closeEasterEgg()">&times;</button>
+            <div style="font-size:3rem; margin-bottom:1rem;">🎉 🚀 ⚡</div>
+            <h3 style="font-family:'Space Grotesk', sans-serif; color:var(--secondary-accent); font-size:1.8rem; margin-bottom:0.5rem;">Easter Egg Unlocked!</h3>
+            <p style="color:var(--text-dim); line-height:1.6; margin-bottom:1.5rem;">
+                You typed the secret word <strong>ODYSSEY</strong>! You have discovered the hidden spark of innovation.
+            </p>
+            <button class="nav-btn" onclick="closeEasterEgg()">Awesome!</button>
+        </div>
+    </div>
+
     <!-- Profile Edit Modal -->
     <div class="modal-overlay" id="profileModal">
         <div class="modal">
@@ -1062,7 +1493,102 @@
     </div>
 
     <script>
-        // 1. Dynamic Background Particles
+        // --- 1. LIVE CLOCK & DYNAMIC GREETING ---
+        function updateClockAndGreeting() {
+            const now = new Date();
+            const hours = now.getHours();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            
+            let greeting = "Welcome";
+            if (hours >= 5 && hours < 12) greeting = "Good Morning ☀️";
+            else if (hours >= 12 && hours < 17) greeting = "Good Afternoon 🌤️";
+            else if (hours >= 17 && hours < 22) greeting = "Good Evening 🌙";
+            else greeting = "Hello Night Owl 🌌";
+
+            const clockEl = document.getElementById('liveClock');
+            const greetingEl = document.getElementById('liveGreeting');
+            if (clockEl) clockEl.textContent = timeStr;
+            if (greetingEl) greetingEl.textContent = greeting;
+        }
+        setInterval(updateClockAndGreeting, 1000);
+        updateClockAndGreeting();
+
+        // --- 2. INTRO LANDING ANIMATION & TYPING EFFECT ---
+        const typingPhrase = "Every great journey begins with a single step...";
+        const typingElement = document.getElementById('typingText');
+        const introOverlay = document.getElementById('introOverlay');
+        let typeIdx = 0;
+        let introDismissed = false;
+
+        function typeWriter() {
+            if (typeIdx < typingPhrase.length) {
+                typingElement.textContent += typingPhrase.charAt(typeIdx);
+                typeIdx++;
+                setTimeout(typeWriter, 55);
+            } else {
+                setTimeout(skipIntro, 1200);
+            }
+        }
+        setTimeout(typeWriter, 800);
+
+        function skipIntro() {
+            if (introDismissed) return;
+            introDismissed = true;
+            introOverlay.classList.add('fade-out');
+        }
+
+        // --- 3. DARK / LIGHT THEME TOGGLE ---
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            document.getElementById('themeBtn').textContent = newTheme === 'light' ? '☀️' : '🌙';
+            localStorage.setItem('odyssey_theme', newTheme);
+        }
+
+        const savedTheme = localStorage.getItem('odyssey_theme') || 'dark';
+        if (savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.getElementById('themeBtn').textContent = '☀️';
+        }
+
+        // --- 4. CURSOR EFFECTS: Glowing Cursor, Particle Trails, Ripple Effects ---
+        const customCursor = document.getElementById('customCursor');
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let cursorX = mouseX;
+        let cursorY = mouseY;
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            customCursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            if (Math.random() < 0.35) {
+                particles.push(new CursorTrailParticle(e.clientX, e.clientY));
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            const ripple = document.createElement('div');
+            ripple.className = 'click-ripple';
+            ripple.style.left = `${e.clientX}px`;
+            ripple.style.top = `${e.clientY}px`;
+            document.body.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 650);
+        });
+
+        // --- 5. DYNAMIC BACKGROUND PARTICLES & TRAIL DUST ---
         const bgCanvas = document.getElementById('bgCanvas');
         const bgCtx = bgCanvas.getContext('2d');
         let particles = [];
@@ -1082,7 +1608,8 @@
                 this.speedX = (Math.random() - 0.5) * 0.6;
                 this.speedY = (Math.random() - 0.5) * 0.6;
                 this.color = Math.random() > 0.5 ? 'rgba(168, 85, 247, ' : 'rgba(6, 182, 212, ';
-                this.alpha = Math.random() * 0.5 + 0.2;
+                this.alpha = Math.random() * 0.4 + 0.1;
+                this.isTrail = false;
             }
             update() {
                 this.x += this.speedX;
@@ -1100,16 +1627,123 @@
             }
         }
 
-        for (let i = 0; i < 70; i++) particles.push(new Particle());
+        class CursorTrailParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 3 + 2;
+                this.speedX = (Math.random() - 0.5) * 1.5;
+                this.speedY = (Math.random() - 0.5) * 1.5;
+                this.color = Math.random() > 0.5 ? 'rgba(168, 85, 247, ' : 'rgba(6, 182, 212, ';
+                this.alpha = 0.8;
+                this.isTrail = true;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= 0.025;
+                this.size *= 0.96;
+            }
+            draw() {
+                bgCtx.fillStyle = this.color + Math.max(0, this.alpha) + ')';
+                bgCtx.beginPath();
+                bgCtx.arc(this.x, this.y, Math.max(0, this.size), 0, Math.PI * 2);
+                bgCtx.fill();
+            }
+        }
+
+        for (let i = 0; i < 65; i++) particles.push(new Particle());
 
         function animateBg() {
             bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.update();
+                p.draw();
+                if (p.isTrail && p.alpha <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
             requestAnimationFrame(animateBg);
         }
         animateBg();
 
-        // 2. Controlled Logo Hover
+        // --- 6. HIDDEN EASTER EGG (TYPE "ODYSSEY") ---
+        let keySequence = '';
+        window.addEventListener('keydown', (e) => {
+            keySequence += e.key.toLowerCase();
+            if (keySequence.length > 10) keySequence = keySequence.slice(-10);
+            
+            if (keySequence.includes('odyssey')) {
+                keySequence = '';
+                triggerEasterEgg();
+            }
+        });
+
+        function triggerEasterEgg() {
+            document.getElementById('easterEggModal').classList.add('active');
+            for (let i = 0; i < 80; i++) {
+                particles.push(new CursorTrailParticle(window.innerWidth / 2, window.innerHeight / 2));
+            }
+        }
+
+        function closeEasterEgg() {
+            document.getElementById('easterEggModal').classList.remove('active');
+        }
+
+        // --- 7. AI CHATBOT ASSISTANT LOGIC ---
+        function toggleAiChat() {
+            document.getElementById('aiChatCard').classList.toggle('active');
+        }
+
+        const aiResponses = {
+            "about us": "Team Odyssey (Team 9) is an innovative group focused on technology, empowerment, and creative hardware/software engineering!",
+            "our projects": "Our key projects include microcontroller applications, embedded PCB prototypes, web portals, and 3D prototyping in the Idea Lab.",
+            "team members": "Our team includes Gayathri P A (Captain), Ardra M Menon (Vice Captain), Abhinav S (Tech Head), Aafrin, Athira, Goutham, Adwaith, and Deepak!",
+            "contact": "You can reach us through our social media channels below, or check out our official YouTube channel @odysseyteam9."
+        };
+
+        function sendPredefined(query) {
+            appendChatMessage(query, 'user');
+            respondToUser(query);
+        }
+
+        function handleUserChat(e) {
+            e.preventDefault();
+            const input = document.getElementById('chatInput');
+            const val = input.value.trim();
+            if (!val) return;
+            appendChatMessage(val, 'user');
+            input.value = '';
+            respondToUser(val);
+        }
+
+        function appendChatMessage(text, sender) {
+            const container = document.getElementById('chatMessages');
+            const msg = document.createElement('div');
+            msg.className = `chat-msg ${sender}`;
+            msg.textContent = text;
+            container.appendChild(msg);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function respondToUser(userQuery) {
+            const queryLower = userQuery.toLowerCase();
+            let botReply = "I'm not sure about that exact query, but feel free to explore our Hub or click one of the quick question chips above!";
+            
+            for (let key in aiResponses) {
+                if (queryLower.includes(key)) {
+                    botReply = aiResponses[key];
+                    break;
+                }
+            }
+
+            setTimeout(() => {
+                appendChatMessage(botReply, 'bot');
+            }, 400);
+        }
+
+        // --- 8. TILT LOGO EFFECT ---
         const tiltLogo = document.getElementById('tiltLogo');
         if (tiltLogo) {
             tiltLogo.parentElement.addEventListener('mousemove', (e) => {
@@ -1124,7 +1758,7 @@
             });
         }
 
-        // 3. Roadmap Data
+        // --- 9. ROADMAP GENERATOR DATA ---
         const roadmaps = {
             embedded: [
                 { step: "1", text: "Master C / C++ Basics & Microcontroller I/O" },
@@ -1159,7 +1793,7 @@
         }
         setRoadmap(null, 'embedded');
 
-        // 4. Team Members Data & Dynamic Skill Matcher
+        // --- 10. TEAM MEMBERS & SKILL MATCHING ---
         const ALL_TAGS = ['captain', 'editing', 'creative', 'hardware', 'software'];
 
         const defaultMembers = [
@@ -1229,7 +1863,7 @@
             }
         ];
 
-        let members = JSON.parse(localStorage.getItem('odyssey_team_v13')) || defaultMembers;
+        let members = JSON.parse(localStorage.getItem('odyssey_team_v14')) || defaultMembers;
         let activeMemberId = null;
 
         function renderTeam() {
@@ -1263,7 +1897,7 @@
                 `;
                 grid.appendChild(card);
             });
-            localStorage.setItem('odyssey_team_v13', JSON.stringify(members));
+            localStorage.setItem('odyssey_team_v14', JSON.stringify(members));
         }
 
         function filterSkill(evt, category) {
@@ -1324,11 +1958,10 @@
             closeModal();
         }
 
-        // Initialize display
         renderTeam();
         filterSkill(null, 'all');
 
-        // 5. Section Navigation Cycle
+        // --- 11. SECTION NAVIGATION CYCLE ---
         const sections = ['about', 'gallery', 'quick-links', 'hub', 'featured-video', 'team', 'socials', 'puzzle']; 
         let currentSectionIndex = 0;
 
@@ -1338,7 +1971,7 @@
             if (sec) sec.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // 6. Puzzle Game Canvas Logic
+        // --- 12. PUZZLE GAME CANVAS LOGIC ---
         const canvas = document.getElementById('puzzleCanvas');
         const ctx = canvas.getContext('2d');
         const congratsInfo = document.getElementById('congratsMessage');
